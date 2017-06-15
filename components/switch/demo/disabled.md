@@ -16,15 +16,17 @@ Disabled state of `Switch`.
 ````jsx
 import { Switch, Button } from 'antd';
 
-class App extends React.Component {
-  state = {
-    disabled: true,
-  }
-  toggle = () => {
+const Test = React.createClass({
+  getInitialState() {
+    return {
+      disabled: true,
+    };
+  },
+  toggle() {
     this.setState({
       disabled: !this.state.disabled,
     });
-  }
+  },
   render() {
     return (
       <div>
@@ -33,8 +35,8 @@ class App extends React.Component {
         <Button type="primary" onClick={this.toggle}>Toggle disabled</Button>
       </div>
     );
-  }
-}
+  },
+});
 
-ReactDOM.render(<App />, mountNode);
+ReactDOM.render(<Test />, mountNode);
 ````

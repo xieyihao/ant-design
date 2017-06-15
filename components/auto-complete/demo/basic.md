@@ -20,12 +20,13 @@ function onSelect(value) {
   console.log('onSelect', value);
 }
 
-class Complete extends React.Component {
-  state = {
-    dataSource: [],
-  }
-
-  handleSearch = (value) => {
+const Complete = React.createClass({
+  getInitialState() {
+    return {
+      dataSource: [],
+    };
+  },
+  handleChange(value) {
     this.setState({
       dataSource: !value ? [] : [
         value,
@@ -33,8 +34,7 @@ class Complete extends React.Component {
         value + value + value,
       ],
     });
-  }
-
+  },
   render() {
     const { dataSource } = this.state;
     return (
@@ -42,12 +42,12 @@ class Complete extends React.Component {
         dataSource={dataSource}
         style={{ width: 200 }}
         onSelect={onSelect}
-        onSearch={this.handleSearch}
+        onChange={this.handleChange}
         placeholder="input here"
       />
     );
-  }
-}
+  },
+});
 
 ReactDOM.render(<Complete />, mountNode);
 ````

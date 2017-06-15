@@ -1,5 +1,7 @@
 import React from 'react';
 import { createElement, Component } from 'react';
+import { findDOMNode } from 'react-dom';
+import isCssAnimationSupported from '../_util/isCssAnimationSupported';
 import assign from 'object-assign';
 import omit from 'omit.js';
 
@@ -36,6 +38,12 @@ export default class ScrollNumber extends Component<ScrollNumberProps, any> {
       animateStarted: true,
       count: props.count,
     };
+  }
+
+  componentDidMount() {
+    if (!isCssAnimationSupported()) {
+      findDOMNode(this).className += ' not-support-css-animation';
+    }
   }
 
   getPositionByNum(num, i) {
@@ -101,7 +109,6 @@ export default class ScrollNumber extends Component<ScrollNumberProps, any> {
       className: `${this.props.prefixCls}-only`,
       style: {
         transition: removeTransition && 'none',
-        msTransform: `translateY(${-position * 100}%)`,
         WebkitTransform: `translateY(${-position * 100}%)`,
         transform: `translateY(${-position * 100}%)`,
       },
@@ -137,7 +144,7 @@ export default class ScrollNumber extends Component<ScrollNumberProps, any> {
     return createElement(
       this.props.component || 'sup',
       props,
-      this.renderNumberElement(),
+      this.renderNumberElement()
     );
   }
 }

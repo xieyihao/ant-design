@@ -50,7 +50,7 @@ class PicturesWall extends React.Component {
     return (
       <div className="clearfix">
         <Upload
-          action="//jsonplaceholder.typicode.com/posts/"
+          action="/upload.do"
           listType="picture-card"
           fileList={fileList}
           onPreview={this.handlePreview}

@@ -3,7 +3,6 @@ import RcCascader from 'rc-cascader';
 import arrayTreeFilter from 'array-tree-filter';
 import classNames from 'classnames';
 import omit from 'omit.js';
-import KeyCode from 'rc-util/lib/KeyCode';
 import Input from '../input';
 import Icon from '../icon';
 
@@ -14,7 +13,7 @@ export interface CascaderOptionType {
   children?: Array<CascaderOptionType>;
 }
 
-export type CascaderExpandTrigger = 'click' | 'hover';
+export type CascaderExpandTrigger = 'click' | 'hover'
 
 export interface ShowSearchType {
   filter?: (inputValue: string, path: CascaderOptionType[]) => boolean;
@@ -61,7 +60,7 @@ export interface CascaderProps {
   onPopupVisibleChange?: (popupVisible: boolean) => void;
   prefixCls?: string;
   inputPrefixCls?: string;
-  getPopupContainer?: (triggerNode?: HTMLElement) => HTMLElement;
+  getPopupContainer?: (triggerNode: Element) => HTMLElement;
 }
 
 function highlightKeyword(str: string, keyword: string, prefixCls: string) {
@@ -110,7 +109,7 @@ export default class Cascader extends React.Component<CascaderProps, any> {
   refs: {
     [key: string]: any;
     input: {
-      refs: { input: HTMLElement },
+      refs: { input: HTMLElement }
     };
   };
 
@@ -170,12 +169,6 @@ export default class Cascader extends React.Component<CascaderProps, any> {
     if (inputFocused || popupVisible) {
       e.stopPropagation();
       e.nativeEvent.stopImmediatePropagation();
-    }
-  }
-
-  handleKeyDown = (e) => {
-    if (e.keyCode === KeyCode.BACKSPACE) {
-      e.stopPropagation();
     }
   }
 
@@ -265,13 +258,12 @@ export default class Cascader extends React.Component<CascaderProps, any> {
       [`${inputPrefixCls}-lg`]: size === 'large',
       [`${inputPrefixCls}-sm`]: size === 'small',
     });
-    const clearIcon = (allowClear && !disabled && value.length > 0) || state.inputValue ? (
+    const clearIcon = (allowClear && !disabled && value.length > 0) || state.inputValue ?
       <Icon
         type="cross-circle"
         className={`${prefixCls}-picker-clear`}
         onClick={this.clearSelection}
-      />
-    ) : null;
+      /> : null;
     const arrowCls = classNames({
       [`${prefixCls}-picker-arrow`]: true,
       [`${prefixCls}-picker-arrow-expand`]: state.popupVisible,
@@ -341,7 +333,6 @@ export default class Cascader extends React.Component<CascaderProps, any> {
           autoComplete="off"
           onClick={showSearch ? this.handleInputClick : undefined}
           onBlur={showSearch ? this.handleInputBlur : undefined}
-          onKeyDown={this.handleKeyDown}
           onChange={showSearch ? this.handleInputChange : undefined}
         />
         <span className={`${prefixCls}-picker-label`}>

@@ -1,5 +1,4 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { PropTypes } from 'react';
 import { Link } from 'bisheng/router';
 import { FormattedMessage } from 'react-intl';
 import classNames from 'classnames';
@@ -28,7 +27,7 @@ export default class Header extends React.Component {
 
     /* eslint-disable global-require */
     require('enquire.js')
-      .register('only screen and (min-width: 0) and (max-width: 992px)', {
+      .register('only screen and (min-width: 320px) and (max-width: 1024px)', {
         match: () => {
           this.setState({ menuMode: 'inline' });
         },
@@ -50,7 +49,6 @@ export default class Header extends React.Component {
       inputValue: '',
     }, () => {
       router.push({ pathname: utils.getLocalizedPathname(`${value}/`, intl.locale === 'zh-CN') });
-      document.querySelector('#search-box .ant-select-search__field').blur();
     });
   }
 
@@ -72,12 +70,6 @@ export default class Header extends React.Component {
     });
   }
 
-  onMenuVisibleChange = (visible) => {
-    this.setState({
-      menuVisible: visible,
-    });
-  }
-
   handleSelectFilter = (value, option) => {
     const optionValue = option.props['data-label'];
     return optionValue === searchEngine ||
@@ -86,17 +78,14 @@ export default class Header extends React.Component {
 
   handleLangChange = () => {
     const pathname = this.props.location.pathname;
-    const currentProtocol = `${location.protocol}//`;
-    const currentHref = location.href.substr(currentProtocol.length);
-
-    if (utils.isLocalStorageNameSupported()) {
+    if (window.localStorage) {
       localStorage.setItem('locale', utils.isZhCN(pathname) ? 'en-US' : 'zh-CN');
     }
-
-    location.href = currentProtocol + currentHref.replace(
-      location.pathname,
-      utils.getLocalizedPathname(pathname, !utils.isZhCN(pathname)),
-    );
+    if (pathname === '/') {
+      location.pathname = utils.getLocalizedPathname(pathname, !utils.isZhCN(pathname));
+    } else {
+      location.href = location.href.replace(location.pathname, utils.getLocalizedPathname(pathname, !utils.isZhCN(pathname)));
+    }
   }
 
   handleVersionChange = (url) => {
@@ -176,6 +165,11 @@ export default class Header extends React.Component {
             <FormattedMessage id="app.header.menu.pattern" />
           </Link>
         </Menu.Item>
+        <Menu.Item key="docs/practice">
+          <Link to={utils.getLocalizedPathname('/docs/practice/cases', isZhCN)}>
+            <FormattedMessage id="app.header.menu.practice" />
+          </Link>
+        </Menu.Item>
         <Menu.Item key="docs/resource">
           <Link to={utils.getLocalizedPathname('/docs/resource/download', isZhCN)}>
             <FormattedMessage id="app.header.menu.resource" />
@@ -194,7 +188,6 @@ export default class Header extends React.Component {
           trigger="click"
           visible={menuVisible}
           arrowPointAtCenter
-          onVisibleChange={this.onMenuVisibleChange}
         >
           <Icon
             className="nav-phone-icon"
@@ -212,8 +205,9 @@ export default class Header extends React.Component {
           <Col lg={20} md={19} sm={0} xs={0}>
             <div id="search-box">
               <Select
-                mode="combobox"
+                combobox
                 value={inputValue}
+                dropdownStyle={{ display: inputValue ? 'block' : 'none' }}
                 dropdownClassName="component-select"
                 placeholder={searchPlaceholder}
                 optionLabelProp="data-label"
@@ -222,9 +216,7 @@ export default class Header extends React.Component {
                 onSearch={this.handleInputChange}
                 getPopupContainer={trigger => trigger.parentNode}
               >
-                <Option value={searchEngine} data-label={searchEngine}>
-                  <FormattedMessage id="app.header.search" />
-                </Option>
+                <Option value={searchEngine} data-label={searchEngine}>全文本搜索...</Option>
                 {options}
               </Select>
             </div>

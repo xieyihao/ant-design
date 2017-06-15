@@ -1,6 +1,6 @@
 ---
 order: 1
-title:
+title: 
   zh-CN: 异步关闭
   en-US: Asynchronously close
 ---
@@ -17,17 +17,19 @@ you can use this pattern when you submit a form.
 ````jsx
 import { Modal, Button } from 'antd';
 
-class App extends React.Component {
-  state = {
-    ModalText: 'Content of the modal dialog',
-    visible: false,
-  }
-  showModal = () => {
+const Test = React.createClass({
+  getInitialState() {
+    return {
+      ModalText: 'Content of the modal dialog',
+      visible: false,
+    };
+  },
+  showModal() {
     this.setState({
       visible: true,
     });
-  }
-  handleOk = () => {
+  },
+  handleOk() {
     this.setState({
       ModalText: 'The modal dialog will be closed after two seconds',
       confirmLoading: true,
@@ -38,13 +40,13 @@ class App extends React.Component {
         confirmLoading: false,
       });
     }, 2000);
-  }
-  handleCancel = () => {
+  },
+  handleCancel() {
     console.log('Clicked cancel button');
     this.setState({
       visible: false,
     });
-  }
+  },
   render() {
     return (
       <div>
@@ -59,8 +61,8 @@ class App extends React.Component {
         </Modal>
       </div>
     );
-  }
-}
+  },
+});
 
-ReactDOM.render(<App />, mountNode);
+ReactDOM.render(<Test />, mountNode);
 ````

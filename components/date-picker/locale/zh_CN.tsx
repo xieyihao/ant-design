@@ -10,7 +10,7 @@ import moment from 'moment';
 import 'moment/locale/zh-cn';
 moment.locale('zh-cn');
 
-// Merge into a locale object
+// 统一合并为完整的 Locale
 const locale = {
   lang: assign({
     placeholder: '请选择日期',

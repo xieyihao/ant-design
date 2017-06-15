@@ -15,7 +15,8 @@ Using `OptGroup` to group the options.
 
 ````jsx
 import { Select } from 'antd';
-const { Option, OptGroup } = Select;
+const Option = Select.Option;
+const OptGroup = Select.OptGroup;
 
 function handleChange(value) {
   console.log(`selected ${value}`);

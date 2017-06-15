@@ -1,10 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { PropTypes } from 'react';
 import classNames from 'classnames';
-import List, { TransferListProps } from './list';
+import List from './list';
+import { TransferListProps } from './list';
 import Operation from './operation';
 import Search from './search';
-import injectLocale from '../locale-provider/injectLocale';
 
 function noop() {
 }
@@ -38,10 +38,16 @@ export interface TransferProps {
   rowKey?: (record: TransferItem) => string;
   onSearchChange?: (direction: 'left' | 'right', e: Event) => void;
   lazy?: {};
-  onScroll?: (direction: 'left' | 'right', e: Event) => void;
 }
 
-abstract class Transfer extends React.Component<TransferProps, any> {
+export interface TransferContext {
+  antLocale?: {
+    Transfer?: any,
+  };
+}
+
+const defaultTitles = ['', ''];
+export default class Transfer extends React.Component<TransferProps, any> {
   // For high-level customized Transfer @dqaria
   static List = List;
   static Operation = Operation;
@@ -74,10 +80,12 @@ abstract class Transfer extends React.Component<TransferProps, any> {
     lazy: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
   };
 
-  splitedDataSource: {
-    leftDataSource: TransferItem[],
-    rightDataSource: TransferItem[],
-  } | null;
+  static contextTypes = {
+    antLocale: PropTypes.object,
+  };
+
+  context: TransferContext;
+  splitedDataSource: any;
 
   constructor(props: TransferProps) {
     super(props);
@@ -91,68 +99,52 @@ abstract class Transfer extends React.Component<TransferProps, any> {
     };
   }
 
-  abstract getLocale()
-
   componentWillReceiveProps(nextProps: TransferProps) {
     const { sourceSelectedKeys, targetSelectedKeys } = this.state;
-
     if (nextProps.targetKeys !== this.props.targetKeys ||
-      nextProps.dataSource !== this.props.dataSource) {
+        nextProps.dataSource !== this.props.dataSource) {
       // clear cached splited dataSource
       this.splitedDataSource = null;
 
-      if (!nextProps.selectedKeys) {
-        // clear key nolonger existed
-        // clear checkedKeys according to targetKeys
-        const { dataSource, targetKeys = [] } = nextProps;
-
-        const newSourceSelectedKeys: String[] = [];
-        const newTargetSelectedKeys: String[] = [];
-        dataSource.forEach(({ key }) => {
-          if (sourceSelectedKeys.includes(key) && !targetKeys.includes(key)) {
-            newSourceSelectedKeys.push(key);
-          }
-          if (targetSelectedKeys.includes(key) && targetKeys.includes(key)) {
-            newTargetSelectedKeys.push(key);
-          }
-        });
-        this.setState({
-          sourceSelectedKeys: newSourceSelectedKeys,
-          targetSelectedKeys: newTargetSelectedKeys,
-        });
+      const { dataSource, targetKeys = [] } = nextProps;
+      function existInDateSourcekey(key) {
+        return dataSource.some(item => item.key === key);
       }
+      // clear key nolonger existed
+      // clear checkedKeys according to targetKeys
+      this.setState({
+        sourceSelectedKeys: sourceSelectedKeys.filter(existInDateSourcekey)
+          .filter(data => targetKeys.filter(key => key === data).length === 0),
+        targetSelectedKeys: targetSelectedKeys.filter(existInDateSourcekey)
+          .filter(data => targetKeys.filter(key => key === data).length > 0),
+      });
     }
-
     if (nextProps.selectedKeys) {
       const targetKeys = nextProps.targetKeys;
       this.setState({
-        sourceSelectedKeys: nextProps.selectedKeys.filter(key => !targetKeys.includes(key)),
-        targetSelectedKeys: nextProps.selectedKeys.filter(key => targetKeys.includes(key)),
+        sourceSelectedKeys: nextProps.selectedKeys.filter(key => targetKeys.indexOf(key) === -1),
+        targetSelectedKeys: nextProps.selectedKeys.filter(key => targetKeys.indexOf(key) > -1),
       });
     }
   }
-
   splitDataSource(props: TransferProps) {
     if (this.splitedDataSource) {
       return this.splitedDataSource;
     }
 
-    const { dataSource, rowKey, targetKeys = [] } = props;
-
-    const leftDataSource: TransferItem[] = [];
-    const rightDataSource: TransferItem[] = new Array(targetKeys.length);
-    dataSource.forEach(record => {
-      if (rowKey) {
+    const { rowKey, dataSource, targetKeys = [] } = props;
+    if (rowKey) {
+      dataSource.forEach(record => {
         record.key = rowKey(record);
-      }
+      });
+    }
 
-      // rightDataSource should be ordered by targetKeys
-      // leftDataSource should be ordered by dataSource
-      const indexOfKey = targetKeys.indexOf(record.key);
-      if (indexOfKey !== -1) {
-        rightDataSource[indexOfKey] = record;
-      } else {
-        leftDataSource.push(record);
+    const leftDataSource = dataSource.filter(({ key }) => targetKeys.indexOf(key) === -1);
+    const rightDataSource: TransferItem[] = [];
+    targetKeys.forEach((targetKey) => {
+      const targetItem = dataSource.filter(record => record.key === targetKey)[0];
+      if (targetItem) {
+        rightDataSource.push(targetItem);
       }
     });
 
@@ -165,15 +157,13 @@ abstract class Transfer extends React.Component<TransferProps, any> {
   }
 
   moveTo = (direction) => {
-    const { targetKeys = [], dataSource = [], onChange } = this.props;
+    const { targetKeys = [], onChange } = this.props;
     const { sourceSelectedKeys, targetSelectedKeys } = this.state;
     const moveKeys = direction === 'right' ? sourceSelectedKeys : targetSelectedKeys;
-    // filter the disabled options
-    const newMoveKeys = moveKeys.filter(key => !dataSource.some(data => !!(key === data.key && data.disabled)));
     // move items to target box
     const newTargetKeys = direction === 'right'
-      ? newMoveKeys.concat(targetKeys)
-      : targetKeys.filter(targetKey => newMoveKeys.indexOf(targetKey) === -1);
+      ? moveKeys.concat(targetKeys)
+      : targetKeys.filter(targetKey => moveKeys.indexOf(targetKey) === -1);
 
     // empty checked keys
     const oppositeDirection = direction === 'right' ? 'left' : 'right';
@@ -183,12 +173,12 @@ abstract class Transfer extends React.Component<TransferProps, any> {
     this.handleSelectChange(oppositeDirection, []);
 
     if (onChange) {
-      onChange(newTargetKeys, direction, newMoveKeys);
+      onChange(newTargetKeys, direction, moveKeys);
     }
   }
 
-  moveToLeft = () => this.moveTo('left');
-  moveToRight = () => this.moveTo('right');
+  moveToLeft = () => this.moveTo('left')
+  moveToRight = () => this.moveTo('right')
 
   handleSelectChange(direction: string, holder: string[]) {
     const { sourceSelectedKeys, targetSelectedKeys } = this.state;
@@ -205,17 +195,7 @@ abstract class Transfer extends React.Component<TransferProps, any> {
   }
 
   handleSelectAll = (direction, filteredDataSource, checkAll) => {
-    const originalSelectedKeys = this.state[this.getSelectedKeysName(direction)] || [];
-    const currentKeys = filteredDataSource.map(item => item.key);
-    // Only operate current keys from original selected keys
-    const newKeys1 = originalSelectedKeys.filter(key => currentKeys.indexOf(key) === -1);
-    const newKeys2 = [...originalSelectedKeys];
-    currentKeys.forEach((key) => {
-      if (newKeys2.indexOf(key) === -1) {
-        newKeys2.push(key);
-      }
-    });
-    const holder = checkAll ? newKeys1 : newKeys2;
+    const holder = checkAll ? [] : filteredDataSource.map(item => item.key);
     this.handleSelectChange(direction, holder);
 
     if (!this.props.selectedKeys) {
@@ -227,10 +207,10 @@ abstract class Transfer extends React.Component<TransferProps, any> {
 
   handleLeftSelectAll = (filteredDataSource, checkAll) => (
     this.handleSelectAll('left', filteredDataSource, checkAll)
-  );
+  )
   handleRightSelectAll = (filteredDataSource, checkAll) => (
     this.handleSelectAll('right', filteredDataSource, checkAll)
-  );
+  )
 
   handleFilter = (direction, e) => {
     this.setState({
@@ -242,8 +222,8 @@ abstract class Transfer extends React.Component<TransferProps, any> {
     }
   }
 
-  handleLeftFilter = (e) => this.handleFilter('left', e);
-  handleRightFilter = (e) => this.handleFilter('right', e);
+  handleLeftFilter = (e) => this.handleFilter('left', e)
+  handleRightFilter = (e) => this.handleFilter('right', e)
 
   handleClear = (direction) => {
     this.setState({
@@ -251,8 +231,8 @@ abstract class Transfer extends React.Component<TransferProps, any> {
     });
   }
 
-  handleLeftClear = () => this.handleClear('left');
-  handleRightClear = () => this.handleClear('right');
+  handleLeftClear = () => this.handleClear('left')
+  handleRightClear = () => this.handleClear('right')
 
   handleSelect = (direction, selectedItem, checked) => {
     const { sourceSelectedKeys, targetSelectedKeys } = this.state;
@@ -276,23 +256,18 @@ abstract class Transfer extends React.Component<TransferProps, any> {
   handleLeftSelect = (selectedItem, checked) => this.handleSelect('left', selectedItem, checked);
   handleRightSelect = (selectedItem, checked) => this.handleSelect('right', selectedItem, checked);
 
-  handleScroll = (direction, e) => {
-    const { onScroll } = this.props;
-    if (onScroll) {
-      onScroll(direction, e);
-    }
-  }
-
-  handleLeftScroll = (e) => this.handleScroll('left', e);
-  handleRightScroll = (e) => this.handleScroll('right', e);
-
   getTitles(): string[] {
-    const { props } = this;
+    const { props, context } = this;
     if (props.titles) {
       return props.titles;
     }
-    const transferLocale = this.getLocale();
-    return transferLocale.titles;
+    const transferLocale = context &&
+      context.antLocale &&
+      context.antLocale.Transfer;
+    if (transferLocale) {
+      return transferLocale.titles || [];
+    }
+    return defaultTitles;
   }
 
   getSelectedKeysName(direction) {
@@ -300,20 +275,10 @@ abstract class Transfer extends React.Component<TransferProps, any> {
   }
 
   render() {
-    const locale = this.getLocale();
     const {
-      prefixCls = 'ant-transfer',
-      className,
-      operations = [],
-      showSearch,
-      notFoundContent = locale.notFoundContent,
-      searchPlaceholder = locale.searchPlaceholder,
-      body,
-      footer,
-      listStyle,
-      filterOption,
-      render,
-      lazy,
+      prefixCls = 'ant-transfer', operations = [], showSearch, notFoundContent,
+      searchPlaceholder, body, footer, listStyle, className = '',
+      filterOption, render, lazy,
     } = this.props;
     const { leftFilter, rightFilter, sourceSelectedKeys, targetSelectedKeys } = this.state;
 
@@ -327,7 +292,6 @@ abstract class Transfer extends React.Component<TransferProps, any> {
     return (
       <div className={cls}>
         <List
-          prefixCls={`${prefixCls}-list`}
           titleText={titles[0]}
           dataSource={leftDataSource}
           filter={leftFilter}
@@ -342,24 +306,21 @@ abstract class Transfer extends React.Component<TransferProps, any> {
           showSearch={showSearch}
           searchPlaceholder={searchPlaceholder}
           notFoundContent={notFoundContent}
-          itemUnit={locale.itemUnit}
-          itemsUnit={locale.itemsUnit}
           body={body}
           footer={footer}
+          prefixCls={`${prefixCls}-list`}
           lazy={lazy}
-          onScroll={this.handleLeftScroll}
         />
         <Operation
-          className={`${prefixCls}-operation`}
           rightActive={rightActive}
           rightArrowText={operations[0]}
           moveToRight={this.moveToRight}
           leftActive={leftActive}
           leftArrowText={operations[1]}
           moveToLeft={this.moveToLeft}
+          className={`${prefixCls}-operation`}
         />
         <List
-          prefixCls={`${prefixCls}-list`}
           titleText={titles[1]}
           dataSource={rightDataSource}
           filter={rightFilter}
@@ -374,21 +335,12 @@ abstract class Transfer extends React.Component<TransferProps, any> {
           showSearch={showSearch}
           searchPlaceholder={searchPlaceholder}
           notFoundContent={notFoundContent}
-          itemUnit={locale.itemUnit}
-          itemsUnit={locale.itemsUnit}
           body={body}
           footer={footer}
+          prefixCls={`${prefixCls}-list`}
           lazy={lazy}
-          onScroll={this.handleRightScroll}
         />
       </div>
     );
   }
 }
-
-const injectTransferLocale = injectLocale('Transfer', {
-  titles: ['', ''],
-  searchPlaceholder: 'Search',
-  notFoundContent: 'Not Found',
-});
-export default injectTransferLocale<TransferProps>(Transfer as any);

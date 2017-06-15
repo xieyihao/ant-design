@@ -1,21 +1,17 @@
-import Pagination from 'rc-pagination/lib/locale/es_ES';
-import DatePicker from '../date-picker/locale/es_ES';
-import TimePicker from '../time-picker/locale/es_ES';
-import Calendar from '../calendar/locale/es_ES';
+import Pagination from 'rc-pagination/lib/locale/en_US';
+import DatePicker from '../date-picker/locale/en_US';
+import TimePicker from '../time-picker/locale/en_US';
 
 export default {
-  locale: 'es',
+  locale: 'en',
   Pagination,
   DatePicker,
   TimePicker,
-  Calendar,
   Table: {
     filterTitle: 'Filtrar Menu',
     filterConfirm: 'OK',
     filterReset: 'Resetear',
     emptyText: 'No Hay Datos',
-    selectAll: 'Seleccionar Todo',
-    selectInvert: 'Invertir Selección',
   },
   Modal: {
     okText: 'OK',
@@ -28,17 +24,8 @@ export default {
   },
   Transfer: {
     notFoundContent: 'No Encontrado',
-    searchPlaceholder: 'Buscar aquí',
+    searchPlaceholder: 'Buscar Aquí',
     itemUnit: 'item',
     itemsUnit: 'items',
-  },
-  Select: {
-    notFoundContent: 'No Encontrado',
-  },
-  Upload: {
-    uploading: 'Subiendo...',
-    removeFile: 'Eliminar archivo',
-    uploadError: 'Error de subida',
-    previewFile: 'Vista previa',
   },
 };

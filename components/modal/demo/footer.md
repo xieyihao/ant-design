@@ -2,45 +2,43 @@
 order: 2
 title:
   zh-CN: 自定义页脚
-  en-US: Customized Footer
+  en-US: Customized footer
 ---
 
 ## zh-CN
 
 更复杂的例子，自定义了页脚的按钮，点击提交后进入 loading 状态，完成后关闭。
 
-不需要默认确定取消按钮时，你可以把 `footer` 设为 `null`。
-
 ## en-US
 
-A more complex example which define a customized footer button bar,
-the dialog will change to loading state after clicking submit button, when the loading is over,
+A more complex example, as illustrated in this example, we define a customized footer button bar,
+the dialog will change to loading state after clicking submit button , when the loading is over,
 the modal dialog will be closed.
-
-You could set `footer` to `null` if you don't need default footer buttons.
 
 ````jsx
 import { Modal, Button } from 'antd';
 
-class App extends React.Component {
-  state = {
-    loading: false,
-    visible: false,
-  }
-  showModal = () => {
+const Test = React.createClass({
+  getInitialState() {
+    return {
+      loading: false,
+      visible: false,
+    };
+  },
+  showModal() {
     this.setState({
       visible: true,
     });
-  }
-  handleOk = () => {
+  },
+  handleOk() {
     this.setState({ loading: true });
     setTimeout(() => {
       this.setState({ loading: false, visible: false });
     }, 3000);
-  }
-  handleCancel = () => {
+  },
+  handleCancel() {
     this.setState({ visible: false });
-  }
+  },
   render() {
     return (
       <div>
@@ -67,8 +65,8 @@ class App extends React.Component {
         </Modal>
       </div>
     );
-  }
-}
+  },
+});
 
-ReactDOM.render(<App />, mountNode);
+ReactDOM.render(<Test />, mountNode);
 ````

@@ -1,5 +1,5 @@
 ---
-order: 11
+order: 12
 title:
   zh-CN: 表单联动
   en-US: Coordinated Controls
@@ -18,21 +18,21 @@ import { Form, Select, Input, Button } from 'antd';
 const FormItem = Form.Item;
 const Option = Select.Option;
 
-class App extends React.Component {
-  handleSubmit = (e) => {
+const App = Form.create()(React.createClass({
+  handleSubmit(e) {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
       }
     });
-  }
-  handleSelectChange = (value) => {
+  },
+  handleSelectChange(value) {
     console.log(value);
     this.props.form.setFieldsValue({
       note: `Hi, ${value === 'male' ? 'man' : 'lady'}!`,
     });
-  }
+  },
   render() {
     const { getFieldDecorator } = this.props.form;
     return (
@@ -63,19 +63,15 @@ class App extends React.Component {
             </Select>
           )}
         </FormItem>
-        <FormItem
-          wrapperCol={{ span: 8, offset: 4 }}
-        >
+        <FormItem wrapperCol={{ span: 8, offset: 4 }}>
           <Button type="primary" htmlType="submit">
             Submit
           </Button>
         </FormItem>
       </Form>
     );
-  }
-}
+  },
+}));
 
-const WrappedApp = Form.create()(App);
-
-ReactDOM.render(<WrappedApp />, mountNode);
+ReactDOM.render(<App />, mountNode);
 ````

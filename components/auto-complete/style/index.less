@@ -8,14 +8,20 @@
 
 .@{autocomplete-prefix-cls} {
   &.@{select-prefix-cls} {
+
     .@{select-prefix-cls} {
+      &-search--inline {
+        position: relative;
+      }
       &-selection {
         border: 0;
-        box-shadow: none;
+        &--single {
+          height: auto;
+        }
         &__rendered {
           margin-left: 0;
           margin-right: 0;
-          height: 100%;
+          line-height: 0;
         }
         &__placeholder {
           margin-left: 8px;
@@ -25,13 +31,8 @@
       }
     }
 
-    &-allow-clear {
-      .@{select-prefix-cls}-selection:hover .@{select-prefix-cls}-selection__rendered {
-        margin-right: 0 !important;
-      }
-    }
-
     .@{input-prefix-cls} {
+      .input();
       background: transparent;
     }
 
@@ -54,7 +55,7 @@
     }
 
     .@{input-prefix-cls} {
-      border-width: @border-width-base;
+      border: @border-width-base @border-style-base @border-color-base;
       &:focus,
       &:hover {
         .hover;

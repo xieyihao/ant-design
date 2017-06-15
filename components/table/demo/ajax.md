@@ -42,14 +42,16 @@ const columns = [{
   dataIndex: 'email',
 }];
 
-class App extends React.Component {
-  state = {
-    data: [],
-    pagination: {},
-    loading: false,
-  };
-  handleTableChange = (pagination, filters, sorter) => {
-    const pager = { ...this.state.pagination };
+const Test = React.createClass({
+  getInitialState() {
+    return {
+      data: [],
+      pagination: {},
+      loading: false,
+    };
+  },
+  handleTableChange(pagination, filters, sorter) {
+    const pager = this.state.pagination;
     pager.current = pagination.current;
     this.setState({
       pagination: pager,
@@ -61,8 +63,8 @@ class App extends React.Component {
       sortOrder: sorter.order,
       ...filters,
     });
-  }
-  fetch = (params = {}) => {
+  },
+  fetch(params = {}) {
     console.log('params:', params);
     this.setState({ loading: true });
     reqwest({
@@ -74,7 +76,7 @@ class App extends React.Component {
       },
       type: 'json',
     }).then((data) => {
-      const pagination = { ...this.state.pagination };
+      const pagination = this.state.pagination;
       // Read total count from server
       // pagination.total = data.totalCount;
       pagination.total = 200;
@@ -84,10 +86,10 @@ class App extends React.Component {
         pagination,
       });
     });
-  }
+  },
   componentDidMount() {
     this.fetch();
-  }
+  },
   render() {
     return (
       <Table columns={columns}
@@ -98,8 +100,8 @@ class App extends React.Component {
         onChange={this.handleTableChange}
       />
     );
-  }
-}
+  },
+});
 
-ReactDOM.render(<App />, mountNode);
+ReactDOM.render(<Test />, mountNode);
 ````

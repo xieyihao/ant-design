@@ -54,20 +54,22 @@ function fetch(value, callback) {
   timeout = setTimeout(fake, 300);
 }
 
-class SearchInput extends React.Component {
-  state = {
-    data: [],
-    value: '',
-  }
-  handleChange = (value) => {
+const SearchInput = React.createClass({
+  getInitialState() {
+    return {
+      data: [],
+      value: '',
+    };
+  },
+  handleChange(value) {
     this.setState({ value });
     fetch(value, data => this.setState({ data }));
-  }
+  },
   render() {
     const options = this.state.data.map(d => <Option key={d.value}>{d.text}</Option>);
     return (
       <Select
-        mode="combobox"
+        combobox
         value={this.state.value}
         placeholder={this.props.placeholder}
         notFoundContent=""
@@ -80,8 +82,8 @@ class SearchInput extends React.Component {
         {options}
       </Select>
     );
-  }
-}
+  },
+});
 
 ReactDOM.render(
   <SearchInput placeholder="input search text" style={{ width: 200 }} />

@@ -17,33 +17,31 @@ Hide default plus icon, and bind event for customized trigger.
 import { Tabs, Button } from 'antd';
 const TabPane = Tabs.TabPane;
 
-class Demo extends React.Component {
-  constructor(props) {
-    super(props);
+const Demo = React.createClass({
+  getInitialState() {
     this.newTabIndex = 0;
     const panes = [
       { title: 'Tab 1', content: 'Content of Tab Pane 1', key: '1' },
       { title: 'Tab 2', content: 'Content of Tab Pane 2', key: '2' },
     ];
-    this.state = {
+    return {
       activeKey: panes[0].key,
       panes,
     };
-  }
-
-  onChange = (activeKey) => {
+  },
+  onChange(activeKey) {
     this.setState({ activeKey });
-  }
-  onEdit = (targetKey, action) => {
+  },
+  onEdit(targetKey, action) {
     this[action](targetKey);
-  }
-  add = () => {
+  },
+  add() {
     const panes = this.state.panes;
     const activeKey = `newTab${this.newTabIndex++}`;
     panes.push({ title: 'New Tab', content: 'New Tab Pane', key: activeKey });
     this.setState({ panes, activeKey });
-  }
-  remove = (targetKey) => {
+  },
+  remove(targetKey) {
     let activeKey = this.state.activeKey;
     let lastIndex;
     this.state.panes.forEach((pane, i) => {
@@ -56,7 +54,7 @@ class Demo extends React.Component {
       activeKey = panes[lastIndex].key;
     }
     this.setState({ panes, activeKey });
-  }
+  },
   render() {
     return (
       <div>
@@ -74,8 +72,8 @@ class Demo extends React.Component {
         </Tabs>
       </div>
     );
-  }
-}
+  },
+});
 
 ReactDOM.render(<Demo />, mountNode);
 ````

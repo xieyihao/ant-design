@@ -16,15 +16,17 @@ Radio unavailable.
 ```jsx
 import { Radio, Button } from 'antd';
 
-class App extends React.Component {
-  state = {
-    disabled: true,
-  }
-  toggleDisabled = () => {
+const App = React.createClass({
+  getInitialState() {
+    return {
+      disabled: true,
+    };
+  },
+  toggleDisabled() {
     this.setState({
       disabled: !this.state.disabled,
     });
-  }
+  },
   render() {
     return (
       <div>
@@ -38,8 +40,8 @@ class App extends React.Component {
         </div>
       </div>
     );
-  }
-}
+  },
+});
 
 ReactDOM.render(<App />, mountNode);
 ```

@@ -1,5 +1,5 @@
 ---
-order: 12
+order: 13
 title:
   zh-CN: 表单布局
   en-US: Form Layout
@@ -36,9 +36,10 @@ class FormLayoutDemo extends React.Component {
     const buttonItemLayout = formLayout === 'horizontal' ? {
       wrapperCol: { span: 14, offset: 4 },
     } : null;
+    const layoutProps = { [formLayout]: true };
     return (
       <div>
-        <Form layout={formLayout}>
+        <Form {...layoutProps}>
           <FormItem
             label="Form Layout"
             {...formItemLayout}

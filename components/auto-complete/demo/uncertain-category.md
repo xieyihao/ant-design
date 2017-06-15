@@ -1,5 +1,5 @@
 ---
-order: 5
+order: 4
 title:
   zh-CN: 查询模式 - 不确定类目
   en-US: Lookup-Patterns - Uncertain Category
@@ -47,22 +47,24 @@ function renderOption(item) {
         {item.category}
       </a>
       区块中
-      <span className="global-search-item-count">约 {item.count} 个结果</span>
+      <span style={{ float: 'right' }}>约 {item.count} 个结果</span>
     </Option>
   );
 }
 
-class Complete extends React.Component {
-  state = {
-    dataSource: [],
-  }
-
-  handleSearch = (value) => {
-    this.setState({
-      dataSource: value ? searchResult(value) : [],
-    });
-  }
-
+const Complete = React.createClass({
+  getInitialState() {
+    return {
+      dataSource: [],
+    };
+  },
+  handleChange(value) {
+    if (value) {
+      this.setState({
+        dataSource: searchResult(value),
+      });
+    }
+  },
   render() {
     const { dataSource } = this.state;
     return (
@@ -73,7 +75,7 @@ class Complete extends React.Component {
           style={{ width: '100%' }}
           dataSource={dataSource.map(renderOption)}
           onSelect={onSelect}
-          onSearch={this.handleSearch}
+          onChange={this.handleChange}
           placeholder="input here"
           optionLabelProp="text"
         >
@@ -87,8 +89,8 @@ class Complete extends React.Component {
         </AutoComplete>
       </div>
     );
-  }
-}
+  },
+});
 
 ReactDOM.render(<Complete />, mountNode);
 ````
@@ -102,25 +104,35 @@ ReactDOM.render(<Complete />, mountNode);
   width: 100%;
 }
 
-.global-search.ant-select-auto-complete .ant-select-selection--single {
-  margin-right: -46px;
+.global-search.ant-select-auto-complete .ant-input {
+  height: 40px;
+  padding: 11px 12px;
 }
 
-.global-search.ant-select-auto-complete .ant-input-affix-wrapper .ant-input:not(:last-child) {
+.global-search.ant-select-auto-complete .ant-select-selection__placeholder {
+  top: 20px;
+  margin-left: 12px;
+  margin-right: 12px;
+}
+
+.global-search .search-btn {
+  font-size: 18px;
+}
+
+.global-search.ant-select-auto-complete .ant-select-selection--single {
+  margin-right: -50px;
+}
+
+.global-search.ant-select-auto-complete .ant-input-preSuffix-wrapper .ant-input:not(:last-child) {
   padding-right: 62px;
 }
 
-.global-search.ant-select-auto-complete .ant-input-affix-wrapper .ant-input-suffix {
+.global-search.ant-select-auto-complete .ant-input-preSuffix-wrapper .ant-input-suffix {
   right: 0;
 }
 
-.global-search.ant-select-auto-complete .ant-input-affix-wrapper .ant-input-suffix button {
+.global-search.ant-select-auto-complete .ant-input-preSuffix-wrapper .ant-input-suffix button {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
-}
-
-.global-search-item-count {
-  position: absolute;
-  right: 16px;
 }
 ````

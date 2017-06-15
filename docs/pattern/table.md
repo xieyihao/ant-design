@@ -154,3 +154,6 @@ title:
 <img class="preview-img" align="right" alt="对齐示例" src="https://os.alipayobjects.com/rmsportal/RWCMGdnGSZXYULc.png">
 
 数值右对齐（带小数则按小数点对齐），其余左对齐。
+
+
+<h2><span class="waiting">案例（敬请期待）</span></h2>

@@ -36,16 +36,18 @@ const columns = [{
   dataIndex: 'age',
 }];
 
-class Page extends React.Component {
-  state = {
-    visible: false,
-  }
-  showModal = () => {
+const Page = React.createClass({
+  getInitialState() {
+    return {
+      visible: false,
+    };
+  },
+  showModal() {
     this.setState({ visible: true });
-  }
-  hideModal = () => {
+  },
+  hideModal() {
     this.setState({ visible: false });
-  }
+  },
   render() {
     const info = () => {
       Modal.info({
@@ -100,17 +102,16 @@ class Page extends React.Component {
         </Modal>
       </div>
     );
-  }
-}
+  },
+});
 
-class App extends React.Component {
-  constructor() {
-    super();
-    this.state = {
+const App = React.createClass({
+  getInitialState() {
+    return {
       locale: enUS,
     };
-  }
-  changeLocale = (e) => {
+  },
+  changeLocale(e) {
     const localeValue = e.target.value;
     this.setState({ locale: localeValue });
     if (!localeValue) {
@@ -118,7 +119,7 @@ class App extends React.Component {
     } else {
       moment.locale('en');
     }
-  }
+  },
   render() {
     return (
       <div>
@@ -132,8 +133,8 @@ class App extends React.Component {
         <LocaleProvider locale={this.state.locale}><Page /></LocaleProvider>
       </div>
     );
-  }
-}
+  },
+});
 
 ReactDOM.render(<App />, mountNode);
 ````

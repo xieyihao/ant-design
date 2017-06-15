@@ -16,23 +16,25 @@ Make it pop up under some conditions.
 ````jsx
 import { Popconfirm, Switch, message } from 'antd';
 
-class App extends React.Component {
-  state = {
-    visible: false,
-    condition: true,   // Whether meet the condition, if not show popconfirm.
-  }
-  changeCondition = (value) => {
+const App = React.createClass({
+  getInitialState() {
+    return {
+      visible: false,
+      condition: true,   // Whether meet the condition, if not show popconfirm.
+    };
+  },
+  changeCondition(value) {
     this.setState({ condition: value });
-  }
-  confirm = () => {
+  },
+  confirm() {
     this.setState({ visible: false });
     message.success('Next step.');
-  }
-  cancel = () => {
+  },
+  cancel() {
     this.setState({ visible: false });
     message.error('Click on cancel.');
-  }
-  handleVisibleChange = (visible) => {
+  },
+  handleVisibleChange(visible) {
     if (!visible) {
       this.setState({ visible });
       return;
@@ -44,7 +46,7 @@ class App extends React.Component {
     } else {
       this.setState({ visible });  // show the popconfirm
     }
-  }
+  },
   render() {
     return (
       <div>
@@ -61,8 +63,8 @@ class App extends React.Component {
         Whether directly execute：<Switch defaultChecked onChange={this.changeCondition} />
       </div>
     );
-  }
-}
+  },
+});
 
 ReactDOM.render(<App />, mountNode);
 ````

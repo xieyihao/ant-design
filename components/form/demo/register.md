@@ -14,10 +14,9 @@ title:
 Fill in this form to create a new account for you.
 
 ````jsx
-import { Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete } from 'antd';
+import { Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button } from 'antd';
 const FormItem = Form.Item;
 const Option = Select.Option;
-const AutoCompleteOption = AutoComplete.Option;
 
 const residences = [{
   value: 'zhejiang',
@@ -43,73 +42,49 @@ const residences = [{
   }],
 }];
 
-class RegistrationForm extends React.Component {
-  state = {
-    confirmDirty: false,
-    autoCompleteResult: [],
-  };
-  handleSubmit = (e) => {
+const RegistrationForm = Form.create()(React.createClass({
+  getInitialState() {
+    return {
+      passwordDirty: false,
+    };
+  },
+  handleSubmit(e) {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
       }
     });
-  }
-  handleConfirmBlur = (e) => {
+  },
+  handlePasswordBlur(e) {
     const value = e.target.value;
-    this.setState({ confirmDirty: this.state.confirmDirty || !!value });
-  }
-  checkPassword = (rule, value, callback) => {
+    this.setState({ passwordDirty: this.state.passwordDirty || !!value });
+  },
+  checkPassword(rule, value, callback) {
     const form = this.props.form;
     if (value && value !== form.getFieldValue('password')) {
       callback('Two passwords that you enter is inconsistent!');
     } else {
       callback();
     }
-  }
-  checkConfirm = (rule, value, callback) => {
+  },
+  checkConfirm(rule, value, callback) {
     const form = this.props.form;
-    if (value && this.state.confirmDirty) {
+    if (value && this.state.passwordDirty) {
       form.validateFields(['confirm'], { force: true });
     }
     callback();
-  }
-
-  handleWebsiteChange = (value) => {
-    let autoCompleteResult;
-    if (!value) {
-      autoCompleteResult = [];
-    } else {
-      autoCompleteResult = ['.com', '.org', '.net'].map(domain => `${value}${domain}`);
-    }
-    this.setState({ autoCompleteResult });
-  }
-
+  },
   render() {
     const { getFieldDecorator } = this.props.form;
-    const { autoCompleteResult } = this.state;
-
     const formItemLayout = {
-      labelCol: {
-        xs: { span: 24 },
-        sm: { span: 6 },
-      },
-      wrapperCol: {
-        xs: { span: 24 },
-        sm: { span: 14 },
-      },
+      labelCol: { span: 6 },
+      wrapperCol: { span: 14 },
     };
     const tailFormItemLayout = {
       wrapperCol: {
-        xs: {
-          span: 24,
-          offset: 0,
-        },
-        sm: {
-          span: 14,
-          offset: 6,
-        },
+        span: 14,
+        offset: 6,
       },
     };
     const prefixSelector = getFieldDecorator('prefix', {
@@ -119,11 +94,6 @@ class RegistrationForm extends React.Component {
         <Option value="86">+86</Option>
       </Select>
     );
-
-    const websiteOptions = autoCompleteResult.map((website) => {
-      return <AutoCompleteOption key={website}>{website}</AutoCompleteOption>;
-    });
-
     return (
       <Form onSubmit={this.handleSubmit}>
         <FormItem
@@ -153,7 +123,7 @@ class RegistrationForm extends React.Component {
               validator: this.checkConfirm,
             }],
           })(
-            <Input type="password" />
+            <Input type="password" onBlur={this.handlePasswordBlur} />
           )}
         </FormItem>
         <FormItem
@@ -168,7 +138,7 @@ class RegistrationForm extends React.Component {
               validator: this.checkPassword,
             }],
           })(
-            <Input type="password" onBlur={this.handleConfirmBlur} />
+            <Input type="password" />
           )}
         </FormItem>
         <FormItem
@@ -184,7 +154,7 @@ class RegistrationForm extends React.Component {
           hasFeedback
         >
           {getFieldDecorator('nickname', {
-            rules: [{ required: true, message: 'Please input your nickname!', whitespace: true }],
+            rules: [{ required: true, message: 'Please input your nickname!' }],
           })(
             <Input />
           )}
@@ -212,22 +182,6 @@ class RegistrationForm extends React.Component {
         </FormItem>
         <FormItem
           {...formItemLayout}
-          label="Website"
-        >
-          {getFieldDecorator('website', {
-            rules: [{ required: true, message: 'Please input website!' }],
-          })(
-            <AutoComplete
-              dataSource={websiteOptions}
-              onChange={this.handleWebsiteChange}
-              placeholder="website"
-            >
-              <Input />
-            </AutoComplete>
-          )}
-        </FormItem>
-        <FormItem
-          {...formItemLayout}
           label="Captcha"
           extra="We must make sure that your are a human."
         >
@@ -248,7 +202,7 @@ class RegistrationForm extends React.Component {
           {getFieldDecorator('agreement', {
             valuePropName: 'checked',
           })(
-            <Checkbox>I have read the <a href="">agreement</a></Checkbox>
+            <Checkbox>I had read the <a>agreement</a></Checkbox>
           )}
         </FormItem>
         <FormItem {...tailFormItemLayout}>
@@ -256,12 +210,10 @@ class RegistrationForm extends React.Component {
         </FormItem>
       </Form>
     );
-  }
-}
+  },
+}));
 
-const WrappedRegistrationForm = Form.create()(RegistrationForm);
-
-ReactDOM.render(<WrappedRegistrationForm />, mountNode);
+ReactDOM.render(<RegistrationForm />, mountNode);
 ````
 
 ````css

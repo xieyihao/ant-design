@@ -16,15 +16,17 @@ Transfer with a search box.
 ````jsx
 import { Transfer } from 'antd';
 
-class App extends React.Component {
-  state = {
-    mockData: [],
-    targetKeys: [],
-  }
+const App = React.createClass({
+  getInitialState() {
+    return {
+      mockData: [],
+      targetKeys: [],
+    };
+  },
   componentDidMount() {
     this.getMock();
-  }
-  getMock = () => {
+  },
+  getMock() {
     const targetKeys = [];
     const mockData = [];
     for (let i = 0; i < 20; i++) {
@@ -40,13 +42,13 @@ class App extends React.Component {
       mockData.push(data);
     }
     this.setState({ mockData, targetKeys });
-  }
-  filterOption = (inputValue, option) => {
+  },
+  filterOption(inputValue, option) {
     return option.description.indexOf(inputValue) > -1;
-  }
-  handleChange = (targetKeys) => {
+  },
+  handleChange(targetKeys) {
     this.setState({ targetKeys });
-  }
+  },
   render() {
     return (
       <Transfer
@@ -58,8 +60,8 @@ class App extends React.Component {
         render={item => item.title}
       />
     );
-  }
-}
+  },
+});
 
 ReactDOM.render(<App />, mountNode);
 ````

@@ -17,31 +17,22 @@ If uploade file is picture, a thumbnail can be shown. `IE8/9` do not support loc
 ````jsx
 import { Upload, Button, Icon } from 'antd';
 
-const fileList = [{
-  uid: -1,
-  name: 'xxx.png',
-  status: 'done',
-  url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-  thumbUrl: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-}, {
-  uid: -2,
-  name: 'yyy.png',
-  status: 'done',
-  url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-  thumbUrl: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-}];
-
 const props = {
-  action: '//jsonplaceholder.typicode.com/posts/',
+  action: '/upload.do',
   listType: 'picture',
-  defaultFileList: [...fileList],
-};
-
-const props2 = {
-  action: '//jsonplaceholder.typicode.com/posts/',
-  listType: 'picture',
-  defaultFileList: [...fileList],
-  className: 'upload-list-inline',
+  defaultFileList: [{
+    uid: -1,
+    name: 'xxx.png',
+    status: 'done',
+    url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+    thumbUrl: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+  }, {
+    uid: -2,
+    name: 'yyy.png',
+    status: 'done',
+    url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+    thumbUrl: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+  }],
 };
 
 ReactDOM.render(
@@ -53,7 +44,7 @@ ReactDOM.render(
     </Upload>
     <br />
     <br />
-    <Upload {...props2}>
+    <Upload {...props} className="upload-list-inline">
       <Button>
         <Icon type="upload" /> upload
       </Button>
@@ -65,14 +56,8 @@ ReactDOM.render(
 ````css
 /* tile uploaded pictures */
 .upload-list-inline .ant-upload-list-item {
-  float: left;
+  display: inline-block;
   width: 200px;
   margin-right: 8px;
-}
-.upload-list-inline .ant-upload-animate-enter {
-  animation-name: uploadAnimateInlineIn;
-}
-.upload-list-inline .ant-upload-animate-leave {
-  animation-name: uploadAnimateInlineOut;
 }
 ````

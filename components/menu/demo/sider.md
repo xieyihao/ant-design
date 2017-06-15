@@ -18,10 +18,10 @@ import { Menu, Icon } from 'antd';
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
 
-class Sider extends React.Component {
-  handleClick = (e) => {
+const Sider = React.createClass({
+  handleClick(e) {
     console.log('click ', e);
-  }
+  },
   render() {
     return (
       <Menu
@@ -57,8 +57,8 @@ class Sider extends React.Component {
         </SubMenu>
       </Menu>
     );
-  }
-}
+  },
+});
 
 ReactDOM.render(<Sider />, mountNode);
 ````

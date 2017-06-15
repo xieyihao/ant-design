@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import DocumentTitle from 'react-document-title';
 import { FormattedMessage } from 'react-intl';
 import classNames from 'classnames';
@@ -10,7 +9,7 @@ import EditButton from './EditButton';
 
 export default class ComponentDoc extends React.Component {
   static contextTypes = {
-    intl: PropTypes.object,
+    intl: React.PropTypes.object,
   }
 
   constructor(props) {
@@ -87,7 +86,8 @@ export default class ComponentDoc extends React.Component {
             <h1>
               {title[locale] || title}
               {
-                !subtitle ? null : <span className="subtitle">{subtitle}</span>
+                !subtitle ? null :
+                  <span className="subtitle">{subtitle}</span>
               }
               <EditButton title={<FormattedMessage id="app.content.edit-page" />} filename={filename} />
             </h1>
@@ -114,7 +114,8 @@ export default class ComponentDoc extends React.Component {
               {leftChildren}
             </Col>
             {
-              isSingleCol ? null : <Col className="code-boxes-col-2-1" span="12">{rightChildren}</Col>
+              isSingleCol ? null :
+                <Col className="code-boxes-col-2-1" span="12">{rightChildren}</Col>
             }
           </Row>
           {

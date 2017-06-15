@@ -17,22 +17,33 @@ The most basic usage, tell you how to use checkable, selectable, disabled, defau
 import { Tree } from 'antd';
 const TreeNode = Tree.TreeNode;
 
-class Demo extends React.Component {
-  onSelect = (selectedKeys, info) => {
-    console.log('selected', selectedKeys, info);
-  }
-  onCheck = (checkedKeys, info) => {
-    console.log('onCheck', checkedKeys, info);
-  }
+const Demo = React.createClass({
+  getDefaultProps() {
+    return {
+      keys: ['0-0-0', '0-0-1'],
+    };
+  },
+  getInitialState() {
+    const keys = this.props.keys;
+    return {
+      defaultExpandedKeys: keys,
+      defaultSelectedKeys: keys,
+      defaultCheckedKeys: keys,
+    };
+  },
+  onSelect(info) {
+    console.log('selected', info);
+  },
+  onCheck(info) {
+    console.log('onCheck', info);
+  },
   render() {
     return (
-      <Tree
-        checkable
-        defaultExpandedKeys={['0-0-0', '0-0-1']}
-        defaultSelectedKeys={['0-0-0', '0-0-1']}
-        defaultCheckedKeys={['0-0-0', '0-0-1']}
-        onSelect={this.onSelect}
-        onCheck={this.onCheck}
+      <Tree className="myCls" showLine checkable
+        defaultExpandedKeys={this.state.defaultExpandedKeys}
+        defaultSelectedKeys={this.state.defaultSelectedKeys}
+        defaultCheckedKeys={this.state.defaultCheckedKeys}
+        onSelect={this.onSelect} onCheck={this.onCheck}
       >
         <TreeNode title="parent 1" key="0-0">
           <TreeNode title="parent 1-0" key="0-0-0" disabled>
@@ -45,8 +56,8 @@ class Demo extends React.Component {
         </TreeNode>
       </Tree>
     );
-  }
-}
+  },
+});
 
 ReactDOM.render(<Demo />, mountNode);
 ````

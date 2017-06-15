@@ -17,15 +17,15 @@ Normal login form which can contain more elements.
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
 const FormItem = Form.Item;
 
-class NormalLoginForm extends React.Component {
-  handleSubmit = (e) => {
+const NormalLoginForm = Form.create()(React.createClass({
+  handleSubmit(e) {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
       }
     });
-  }
+  },
   render() {
     const { getFieldDecorator } = this.props.form;
     return (
@@ -34,14 +34,14 @@ class NormalLoginForm extends React.Component {
           {getFieldDecorator('userName', {
             rules: [{ required: true, message: 'Please input your username!' }],
           })(
-            <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />} placeholder="Username" />
+            <Input addonBefore={<Icon type="user" />} placeholder="Username" />
           )}
         </FormItem>
         <FormItem>
           {getFieldDecorator('password', {
             rules: [{ required: true, message: 'Please input your Password!' }],
           })(
-            <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />} type="password" placeholder="Password" />
+            <Input addonBefore={<Icon type="lock" />} type="password" placeholder="Password" />
           )}
         </FormItem>
         <FormItem>
@@ -51,20 +51,18 @@ class NormalLoginForm extends React.Component {
           })(
             <Checkbox>Remember me</Checkbox>
           )}
-          <a className="login-form-forgot" href="">Forgot password</a>
+          <a className="login-form-forgot">Forgot password</a>
           <Button type="primary" htmlType="submit" className="login-form-button">
             Log in
           </Button>
-          Or <a href="">register now!</a>
+          Or <a>register now!</a>
         </FormItem>
       </Form>
     );
-  }
-}
+  },
+}));
 
-const WrappedNormalLoginForm = Form.create()(NormalLoginForm);
-
-ReactDOM.render(<WrappedNormalLoginForm />, mountNode);
+ReactDOM.render(<NormalLoginForm />, mountNode);
 ````
 
 ```css

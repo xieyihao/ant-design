@@ -1,7 +1,6 @@
 import React from 'react';
 import RcCollapse from 'rc-collapse';
 import classNames from 'classnames';
-import animation from '../_util/openAnimation';
 
 export interface CollapseProps {
   activeKey?: Array<string> | string;
@@ -31,7 +30,6 @@ export default class Collapse extends React.Component<CollapseProps, any> {
   static defaultProps = {
     prefixCls: 'ant-collapse',
     bordered: true,
-    openAnimation: { ...animation, appear() {} },
   };
 
   render() {

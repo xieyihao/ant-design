@@ -1,6 +1,6 @@
 ---
 order: 2
-title:
+title: 
   zh-CN: 拖动示例
   en-US: draggable
 ---
@@ -45,24 +45,24 @@ const generateData = (_level, _preKey, _tns) => {
 };
 generateData(z);
 
-class Demo extends React.Component {
-  state = {
-    gData,
-    expandedKeys: ['0-0', '0-0-0', '0-0-0-0'],
-  }
-  onDragEnter = (info) => {
+const Demo = React.createClass({
+  getInitialState() {
+    return {
+      gData,
+      expandedKeys: ['0-0', '0-0-0', '0-0-0-0'],
+    };
+  },
+  onDragEnter(info) {
     console.log(info);
     // expandedKeys 需要受控时设置
     // this.setState({
     //   expandedKeys: info.expandedKeys,
     // });
-  }
-  onDrop = (info) => {
+  },
+  onDrop(info) {
     console.log(info);
     const dropKey = info.node.props.eventKey;
     const dragKey = info.dragNode.props.eventKey;
-    const dropPos = info.node.props.pos.split('-');
-    const dropPosition = info.dropPosition - Number(dropPos[dropPos.length - 1]);
     // const dragNodesKeys = info.dragNodesKeys;
     const loop = (data, key, callback) => {
       data.forEach((item, index, arr) => {
@@ -87,11 +87,7 @@ class Demo extends React.Component {
         ar = arr;
         i = index;
       });
-      if (dropPosition === -1) {
-        ar.splice(i, 0, dragObj);
-      } else {
-        ar.splice(i - 1, 0, dragObj);
-      }
+      ar.splice(i, 0, dragObj);
     } else {
       loop(data, dropKey, (item) => {
         item.children = item.children || [];
@@ -102,7 +98,7 @@ class Demo extends React.Component {
     this.setState({
       gData: data,
     });
-  }
+  },
   render() {
     const loop = data => data.map((item) => {
       if (item.children && item.children.length) {
@@ -112,7 +108,6 @@ class Demo extends React.Component {
     });
     return (
       <Tree
-        className="draggable-tree"
         defaultExpandedKeys={this.state.expandedKeys}
         draggable
         onDragEnter={this.onDragEnter}
@@ -121,15 +116,8 @@ class Demo extends React.Component {
         {loop(this.state.gData)}
       </Tree>
     );
-  }
-}
+  },
+});
 
 ReactDOM.render(<Demo />, mountNode);
-````
-
-````css
-/* You can add the following CSS to your project to make draggable area bigger */
-#components-tree-demo-draggable .draggable-tree .ant-tree-node-content-wrapper {
-  width: calc(100% - 18px);
-}
 ````

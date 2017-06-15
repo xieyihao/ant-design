@@ -18,16 +18,18 @@ import { Menu, Icon } from 'antd';
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
 
-class App extends React.Component {
-  state = {
-    current: 'mail',
-  }
-  handleClick = (e) => {
+const App = React.createClass({
+  getInitialState() {
+    return {
+      current: 'mail',
+    };
+  },
+  handleClick(e) {
     console.log('click ', e);
     this.setState({
       current: e.key,
     });
-  }
+  },
   render() {
     return (
       <Menu
@@ -56,8 +58,8 @@ class App extends React.Component {
         </Menu.Item>
       </Menu>
     );
-  }
-}
+  },
+});
 
 ReactDOM.render(<App />, mountNode);
 ````

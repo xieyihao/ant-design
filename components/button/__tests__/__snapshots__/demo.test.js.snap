@@ -1,35 +1,29 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`renders ./components/button/demo/basic.md correctly 1`] = `
+exports[`test renders ./components/button/demo/basic.md correctly 1`] = `
 <div>
   <button
     class="ant-btn ant-btn-primary"
-    type="button"
-  >
+    type="button">
     <span>
       Primary
     </span>
   </button>
   <button
     class="ant-btn"
-    type="button"
-  >
+    type="button">
     <span>
       Default
     </span>
   </button>
   <button
     class="ant-btn ant-btn-dashed"
-    type="button"
-  >
+    type="button">
     <span>
       Dashed
     </span>
   </button>
   <button
     class="ant-btn ant-btn-danger"
-    type="button"
-  >
+    type="button">
     <span>
       Danger
     </span>
@@ -37,39 +31,34 @@ exports[`renders ./components/button/demo/basic.md correctly 1`] = `
 </div>
 `;
 
-exports[`renders ./components/button/demo/button-group.md correctly 1`] = `
+exports[`test renders ./components/button/demo/button-group.md correctly 1`] = `
 <div>
   <h4>
     Basic
   </h4>
   <div
-    class="ant-btn-group"
-  >
+    class="ant-btn-group">
     <button
       class="ant-btn"
-      type="button"
-    >
+      type="button">
       <span>
         Cancel
       </span>
     </button>
     <button
       class="ant-btn ant-btn-primary"
-      type="button"
-    >
+      type="button">
       <span>
         OK
       </span>
     </button>
   </div>
   <div
-    class="ant-btn-group"
-  >
+    class="ant-btn-group">
     <button
       class="ant-btn"
       disabled=""
-      type="button"
-    >
+      type="button">
       <span>
         L
       </span>
@@ -77,8 +66,7 @@ exports[`renders ./components/button/demo/button-group.md correctly 1`] = `
     <button
       class="ant-btn"
       disabled=""
-      type="button"
-    >
+      type="button">
       <span>
         M
       </span>
@@ -86,44 +74,38 @@ exports[`renders ./components/button/demo/button-group.md correctly 1`] = `
     <button
       class="ant-btn"
       disabled=""
-      type="button"
-    >
+      type="button">
       <span>
         R
       </span>
     </button>
   </div>
   <div
-    class="ant-btn-group"
-  >
+    class="ant-btn-group">
     <button
       class="ant-btn ant-btn-primary"
-      type="button"
-    >
+      type="button">
       <span>
         L
       </span>
     </button>
     <button
       class="ant-btn"
-      type="button"
-    >
+      type="button">
       <span>
         M
       </span>
     </button>
     <button
       class="ant-btn"
-      type="button"
-    >
+      type="button">
       <span>
         M
       </span>
     </button>
     <button
       class="ant-btn ant-btn-dashed"
-      type="button"
-    >
+      type="button">
       <span>
         R
       </span>
@@ -133,60 +115,49 @@ exports[`renders ./components/button/demo/button-group.md correctly 1`] = `
     With Icon
   </h4>
   <div
-    class="ant-btn-group"
-  >
+    class="ant-btn-group">
     <button
       class="ant-btn ant-btn-primary"
-      type="button"
-    >
+      type="button">
       <i
-        class="anticon anticon-left"
-      />
+        class="anticon anticon-left" />
       <span>
         Go back
       </span>
     </button>
     <button
       class="ant-btn ant-btn-primary"
-      type="button"
-    >
+      type="button">
       <span>
         Go forward
       </span>
       <i
-        class="anticon anticon-right"
-      />
+        class="anticon anticon-right" />
     </button>
   </div>
   <div
-    class="ant-btn-group"
-  >
+    class="ant-btn-group">
     <button
       class="ant-btn ant-btn-primary ant-btn-icon-only"
-      type="button"
-    >
+      type="button">
       <i
-        class="anticon anticon-cloud"
-      />
+        class="anticon anticon-cloud" />
     </button>
     <button
       class="ant-btn ant-btn-primary ant-btn-icon-only"
-      type="button"
-    >
+      type="button">
       <i
-        class="anticon anticon-cloud-download"
-      />
+        class="anticon anticon-cloud-download" />
     </button>
   </div>
 </div>
 `;
 
-exports[`renders ./components/button/demo/disabled.md correctly 1`] = `
+exports[`test renders ./components/button/demo/disabled.md correctly 1`] = `
 <div>
   <button
     class="ant-btn ant-btn-primary"
-    type="button"
-  >
+    type="button">
     <span>
       Primary
     </span>
@@ -194,8 +165,7 @@ exports[`renders ./components/button/demo/disabled.md correctly 1`] = `
   <button
     class="ant-btn ant-btn-primary"
     disabled=""
-    type="button"
-  >
+    type="button">
     <span>
       Primary(disabled)
     </span>
@@ -203,8 +173,7 @@ exports[`renders ./components/button/demo/disabled.md correctly 1`] = `
   <br />
   <button
     class="ant-btn"
-    type="button"
-  >
+    type="button">
     <span>
       Default
     </span>
@@ -212,8 +181,7 @@ exports[`renders ./components/button/demo/disabled.md correctly 1`] = `
   <button
     class="ant-btn"
     disabled=""
-    type="button"
-  >
+    type="button">
     <span>
       Default(disabled)
     </span>
@@ -221,8 +189,7 @@ exports[`renders ./components/button/demo/disabled.md correctly 1`] = `
   <br />
   <button
     class="ant-btn"
-    type="button"
-  >
+    type="button">
     <span>
       Ghost
     </span>
@@ -230,8 +197,7 @@ exports[`renders ./components/button/demo/disabled.md correctly 1`] = `
   <button
     class="ant-btn"
     disabled=""
-    type="button"
-  >
+    type="button">
     <span>
       Ghost(disabled)
     </span>
@@ -239,8 +205,7 @@ exports[`renders ./components/button/demo/disabled.md correctly 1`] = `
   <br />
   <button
     class="ant-btn ant-btn-dashed"
-    type="button"
-  >
+    type="button">
     <span>
       Dashed
     </span>
@@ -248,8 +213,7 @@ exports[`renders ./components/button/demo/disabled.md correctly 1`] = `
   <button
     class="ant-btn ant-btn-dashed"
     disabled=""
-    type="button"
-  >
+    type="button">
     <span>
       Dashed(disabled)
     </span>
@@ -257,81 +221,61 @@ exports[`renders ./components/button/demo/disabled.md correctly 1`] = `
 </div>
 `;
 
-exports[`renders ./components/button/demo/ghost.md correctly 1`] = `
+exports[`test renders ./components/button/demo/ghost.md correctly 1`] = `
 <div
-  style="background:rgb(190, 200, 200);padding:26px 16px 16px;"
->
+  style="background:rgb(190, 200, 200);padding:26px 16px 16px;">
   <button
     class="ant-btn ant-btn-primary ant-btn-background-ghost"
-    type="button"
-  >
+    type="button">
     <span>
-      Primary
+      Primary Ghost
     </span>
   </button>
   <button
     class="ant-btn ant-btn-background-ghost"
-    type="button"
-  >
+    type="button">
     <span>
-      Default
+      Default Ghost
     </span>
   </button>
   <button
     class="ant-btn ant-btn-dashed ant-btn-background-ghost"
-    type="button"
-  >
+    type="button">
     <span>
-      Dashed
-    </span>
-  </button>
-  <button
-    class="ant-btn ant-btn-danger ant-btn-background-ghost"
-    type="button"
-  >
-    <span>
-      danger
+      Dashed Ghost
     </span>
   </button>
 </div>
 `;
 
-exports[`renders ./components/button/demo/icon.md correctly 1`] = `
+exports[`test renders ./components/button/demo/icon.md correctly 1`] = `
 <div>
   <button
     class="ant-btn ant-btn-primary ant-btn-circle ant-btn-icon-only"
-    type="button"
-  >
+    type="button">
     <i
-      class="anticon anticon-search"
-    />
+      class="anticon anticon-search" />
   </button>
   <button
     class="ant-btn ant-btn-primary"
-    type="button"
-  >
+    type="button">
     <i
-      class="anticon anticon-search"
-    />
+      class="anticon anticon-search" />
     <span>
       Search
     </span>
   </button>
   <button
     class="ant-btn ant-btn-circle ant-btn-icon-only"
-    type="button"
-  >
+    type="button">
     <i
-      class="anticon anticon-search"
-    />
+      class="anticon anticon-search" />
   </button>
   <button
     class="ant-btn"
-    type="button"
-  >
+    type="button">
     <i
-      class="anticon anticon-search"
-    />
+      class="anticon anticon-search" />
     <span>
       Search
     </span>
@@ -339,38 +283,30 @@ exports[`renders ./components/button/demo/icon.md correctly 1`] = `
   <br />
   <button
     class="ant-btn ant-btn-circle ant-btn-icon-only"
-    type="button"
-  >
+    type="button">
     <i
-      class="anticon anticon-search"
-    />
+      class="anticon anticon-search" />
   </button>
   <button
     class="ant-btn"
-    type="button"
-  >
+    type="button">
     <i
-      class="anticon anticon-search"
-    />
+      class="anticon anticon-search" />
     <span>
       Search
     </span>
   </button>
   <button
     class="ant-btn ant-btn-dashed ant-btn-circle ant-btn-icon-only"
-    type="button"
-  >
+    type="button">
     <i
-      class="anticon anticon-search"
-    />
+      class="anticon anticon-search" />
   </button>
   <button
     class="ant-btn ant-btn-dashed"
-    type="button"
-  >
+    type="button">
     <i
-      class="anticon anticon-search"
-    />
+      class="anticon anticon-search" />
     <span>
       Search
     </span>
@@ -378,26 +314,22 @@ exports[`renders ./components/button/demo/icon.md correctly 1`] = `
 </div>
 `;
 
-exports[`renders ./components/button/demo/loading.md correctly 1`] = `
-<span>
+exports[`test renders ./components/button/demo/loading.md correctly 1`] = `
+<div>
   <button
     class="ant-btn ant-btn-primary ant-btn-loading"
-    type="button"
-  >
+    type="button">
     <i
-      class="anticon anticon-spin anticon-loading"
-    />
+      class="anticon anticon-spin anticon-loading" />
     <span>
       Loading
     </span>
   </button>
   <button
     class="ant-btn ant-btn-primary ant-btn-sm ant-btn-loading"
-    type="button"
-  >
+    type="button">
     <i
-      class="anticon anticon-spin anticon-loading"
-    />
+      class="anticon anticon-spin anticon-loading" />
     <span>
       Loading
     </span>
@@ -405,19 +337,16 @@ exports[`renders ./components/button/demo/loading.md correctly 1`] = `
   <br />
   <button
     class="ant-btn ant-btn-primary"
-    type="button"
-  >
+    type="button">
     <span>
       Click me!
     </span>
   </button>
   <button
     class="ant-btn ant-btn-primary"
-    type="button"
-  >
+    type="button">
     <i
-      class="anticon anticon-poweroff"
-    />
+      class="anticon anticon-poweroff" />
     <span>
       Click me!
     </span>
@@ -425,110 +354,89 @@ exports[`renders ./components/button/demo/loading.md correctly 1`] = `
   <br />
   <button
     class="ant-btn ant-btn-circle ant-btn-loading"
-    type="button"
-  >
+    type="button">
     <i
-      class="anticon anticon-spin anticon-loading"
-    />
+      class="anticon anticon-spin anticon-loading" />
   </button>
   <button
     class="ant-btn ant-btn-primary ant-btn-circle ant-btn-loading"
-    type="button"
-  >
+    type="button">
     <i
-      class="anticon anticon-spin anticon-loading"
-    />
+      class="anticon anticon-spin anticon-loading" />
   </button>
-</span>
+</div>
 `;
 
-exports[`renders ./components/button/demo/multiple.md correctly 1`] = `
+exports[`test renders ./components/button/demo/multiple.md correctly 1`] = `
 <div>
   <button
     class="ant-btn ant-btn-primary"
-    type="button"
-  >
+    type="button">
     <span>
       primary
     </span>
   </button>
   <button
     class="ant-btn"
-    type="button"
-  >
+    type="button">
     <span>
       secondary
     </span>
   </button>
   <button
     class="ant-btn ant-dropdown-trigger"
-    type="button"
-  >
+    type="button">
     <span>
       more 
     </span>
     <i
-      class="anticon anticon-down"
-    />
+      class="anticon anticon-down" />
   </button>
 </div>
 `;
 
-exports[`renders ./components/button/demo/size.md correctly 1`] = `
+exports[`test renders ./components/button/demo/size.md correctly 1`] = `
 <div>
   <div
-    class="ant-radio-group"
-  >
+    class="ant-radio-group">
     <label
-      class="ant-radio-button-wrapper"
-    >
+      class="ant-radio-button-wrapper">
       <span
-        class="ant-radio-button"
-      >
+        class="ant-radio-button">
+        <span
+          class="ant-radio-button-inner" />
         <input
           class="ant-radio-button-input"
-          type="radio"
-        />
-        <span
-          class="ant-radio-button-inner"
-        />
+          type="radio" />
       </span>
       <span>
         Large
       </span>
     </label>
     <label
-      class="ant-radio-button-wrapper ant-radio-button-wrapper-checked"
-    >
+      class="ant-radio-button-wrapper ant-radio-button-wrapper-checked">
       <span
-        class="ant-radio-button ant-radio-button-checked"
-      >
+        class="ant-radio-button ant-radio-button-checked ant-radio-button ant-radio-button-checked ant-radio-button-checked-1">
+        <span
+          class="ant-radio-button-inner" />
         <input
           checked=""
           class="ant-radio-button-input"
-          type="radio"
-        />
-        <span
-          class="ant-radio-button-inner"
-        />
+          type="radio" />
       </span>
       <span>
         Default
       </span>
     </label>
     <label
-      class="ant-radio-button-wrapper"
-    >
+      class="ant-radio-button-wrapper">
       <span
-        class="ant-radio-button"
-      >
+        class="ant-radio-button">
+        <span
+          class="ant-radio-button-inner" />
         <input
           class="ant-radio-button-input"
-          type="radio"
-        />
-        <span
-          class="ant-radio-button-inner"
-        />
+          type="radio" />
       </span>
       <span>
         Small
@@ -539,56 +447,46 @@ exports[`renders ./components/button/demo/size.md correctly 1`] = `
   <br />
   <button
     class="ant-btn ant-btn-primary ant-btn-circle ant-btn-icon-only"
-    type="button"
-  >
+    type="button">
     <i
-      class="anticon anticon-download"
-    />
+      class="anticon anticon-download" />
   </button>
   <button
     class="ant-btn ant-btn-primary"
-    type="button"
-  >
+    type="button">
     <i
-      class="anticon anticon-download"
-    />
+      class="anticon anticon-download" />
     <span>
       Download
     </span>
   </button>
   <button
     class="ant-btn ant-btn-primary"
-    type="button"
-  >
+    type="button">
     <span>
       Normal
     </span>
   </button>
   <br />
   <div
-    class="ant-btn-group"
-  >
+    class="ant-btn-group">
     <button
       class="ant-btn ant-btn-primary"
-      type="button"
-    >
+      type="button">
       <i
-        class="anticon anticon-left"
-      />
+        class="anticon anticon-left" />
       <span>
         Backward
       </span>
     </button>
     <button
       class="ant-btn ant-btn-primary"
-      type="button"
-    >
+      type="button">
       <span>
         Forward
       </span>
       <i
-        class="anticon anticon-right"
-      />
+        class="anticon anticon-right" />
     </button>
   </div>
 </div>

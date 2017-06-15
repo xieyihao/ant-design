@@ -6,7 +6,9 @@ import QueueAnim from 'rc-queue-anim';
 
 export default function Page4() {
   return (
-    <ScrollOverPack id="page4" className="content-wrapper page">
+    <ScrollOverPack id="page4" className="content-wrapper page"
+      hideProps={{ image: { reverse: true } }}
+    >
       <QueueAnim className="text-wrapper-bottom" key="text"
         leaveReverse type="bottom"
       >

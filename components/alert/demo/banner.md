@@ -1,6 +1,5 @@
 ---
 order: 6
-iframe: 250
 title:
   zh-CN: 顶部公告
   en-US: Banner
@@ -8,11 +7,11 @@ title:
 
 ## zh-CN
 
-页面顶部通告形式，默认有图标且`type` 为 'warning'。
+用作顶部公告时，默认有图标，`type` 为 'warning'，并有特殊样式。
 
 ## en-US
 
-Display Alert as a banner at top of page.
+When `Alert` is used as banner, it has particular style, Icon and `type`(warning) are specified by default.
 
 ````jsx
 import { Alert } from 'antd';
@@ -22,10 +21,6 @@ ReactDOM.render(
     <Alert message="Warning text" banner />
     <br />
     <Alert message="Very long warning text warning text text text text text text text" banner closable />
-    <br />
-    <Alert showIcon={false} message="Warning text without icon" banner />
-    <br />
-    <Alert type="error" message="Error text" banner />
   </div>
 , mountNode);
 ````

@@ -78,10 +78,6 @@
     display: none;
   }
 
-  .@{iconfont-css-prefix} {
-    transition: margin-left .3s @ease-in-out;
-  }
-
   &&-loading:before {
     display: block;
   }
@@ -92,6 +88,7 @@
     position: relative;
     .@{iconfont-css-prefix} {
       margin-left: -14px;
+      transition: all .3s @ease-in-out;
     }
   }
 
@@ -111,12 +108,6 @@
     padding-right: 8px;
   }
 
-  // http://stackoverflow.com/a/21281554/3040605
-  &:focus > span,
-  &:active > span {
-    position: relative;
-  }
-
   // To ensure that a space will be placed between character and `Icon`.
   > .@{iconfont-css-prefix} + span,
   > span + .@{iconfont-css-prefix} {
@@ -131,14 +122,14 @@
     bottom: -1px;
     right: -1px;
     border-radius: inherit;
-    border: 0 solid @primary-color;
+    border: 1.5px solid @primary-color;
     opacity: 0.4;
-    animation: buttonEffect .4s;
+    animation: buttonEffect 0.4s ease-in-out forwards;
     display: block;
   }
 
   &-danger&-clicked:after {
-    border-color: @btn-danger-color;
+    border-color: @btn-danger-bg;
   }
 
   &-background-ghost {
@@ -148,11 +139,7 @@
   }
 
   &-background-ghost&-primary {
-    .button-variant-ghost(@primary-color);
-  }
-
-  &-background-ghost&-danger {
-    .button-variant-ghost(@btn-danger-color);
+    .button-variant-other(@primary-color; transparent; @primary-color);
   }
 }
 
@@ -163,6 +150,5 @@
     left: -6px;
     bottom: -6px;
     right: -6px;
-    border-width: 6px;
   }
 }

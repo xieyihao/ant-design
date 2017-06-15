@@ -1,6 +1,6 @@
 ---
 order: 6
-title:
+title: 
   zh-CN: 国际化
   en-US: Internationalization
 ---
@@ -16,23 +16,25 @@ To customize the text of the buttons, you need to set `okText` and `cancelText` 
 ````jsx
 import { Modal, Button } from 'antd';
 
-class LocalizedModal extends React.Component {
-  state = { visible: false }
-  showModal = () => {
+const LocalizedModal = React.createClass({
+  getInitialState() {
+    return { visible: false };
+  },
+  showModal() {
     this.setState({
       visible: true,
     });
-  }
-  handleOk = () => {
+  },
+  handleOk() {
     this.setState({
       visible: false,
     });
-  }
-  handleCancel = () => {
+  },
+  handleCancel() {
     this.setState({
       visible: false,
     });
-  }
+  },
   render() {
     return (
       <div>
@@ -47,8 +49,8 @@ class LocalizedModal extends React.Component {
         </Modal>
       </div>
     );
-  }
-}
+  },
+});
 
 function confirm() {
   Modal.confirm({
@@ -65,3 +67,4 @@ ReactDOM.render(<div>
   <Button onClick={confirm}>confirm</Button>
 </div>, mountNode);
 ````
+

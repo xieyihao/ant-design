@@ -1,10 +1,7 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
 exports[`Search should show cross icon when input value exists 1`] = `
 <Search
   placeholder=""
-  value=""
->
+  value="">
   <div>
     <Input
       autosize={false}
@@ -13,28 +10,25 @@ exports[`Search should show cross icon when input value exists 1`] = `
       placeholder=""
       prefixCls="ant-input"
       type="text"
-      value=""
-    >
+      value="">
       <input
         className="ant-input"
         disabled={false}
+        onBlur={[Function]}
         onChange={[Function]}
+        onFocus={[Function]}
         onKeyDown={[Function]}
         placeholder=""
         type="text"
-        value=""
-      />
+        value="" />
     </Input>
     <span
-      className="undefined-action"
-    >
-      <Icon
-        type="search"
-      >
+      className="undefined-action">
+      <Component
+        type="search">
         <i
-          className="anticon anticon-search"
-        />
-      </Icon>
+          className="anticon anticon-search" />
+      </Component>
     </span>
   </div>
 </Search>
@@ -43,8 +37,7 @@ exports[`Search should show cross icon when input value exists 1`] = `
 exports[`Search should show cross icon when input value exists 2`] = `
 <Search
   placeholder=""
-  value="a"
->
+  value="a">
   <div>
     <Input
       autosize={false}
@@ -53,30 +46,27 @@ exports[`Search should show cross icon when input value exists 2`] = `
       placeholder=""
       prefixCls="ant-input"
       type="text"
-      value="a"
-    >
+      value="a">
       <input
         className="ant-input"
         disabled={false}
+        onBlur={[Function]}
         onChange={[Function]}
+        onFocus={[Function]}
         onKeyDown={[Function]}
         placeholder=""
         type="text"
-        value="a"
-      />
+        value="a" />
     </Input>
     <a
       className="undefined-action"
       href="#"
-      onClick={[Function]}
-    >
-      <Icon
-        type="cross-circle"
-      >
+      onClick={[Function]}>
+      <Component
+        type="cross-circle">
         <i
-          className="anticon anticon-cross-circle"
-        />
-      </Icon>
+          className="anticon anticon-cross-circle" />
+      </Component>
     </a>
   </div>
 </Search>

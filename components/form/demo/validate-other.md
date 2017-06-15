@@ -1,5 +1,5 @@
 ---
-order: 13
+order: 11
 title:
   zh-CN: 校验其他组件
   en-US: Other Form Controls
@@ -23,22 +23,23 @@ const Option = Select.Option;
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
 
-class Demo extends React.Component {
-  handleSubmit = (e) => {
+const Demo = Form.create()(React.createClass({
+  handleSubmit(e) {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
       }
     });
-  }
-  normFile = (e) => {
-    console.log('Upload event:', e);
+  },
+
+  normFile(e) {
     if (Array.isArray(e)) {
       return e;
     }
     return e && e.fileList;
-  }
+  },
+
   render() {
     const { getFieldDecorator } = this.props.form;
     const formItemLayout = {
@@ -49,7 +50,7 @@ class Demo extends React.Component {
       <Form onSubmit={this.handleSubmit}>
         <FormItem
           {...formItemLayout}
-          label="Plain Text"
+          label="Nation"
         >
           <span className="ant-form-text">China</span>
         </FormItem>
@@ -79,7 +80,7 @@ class Demo extends React.Component {
               { required: true, message: 'Please select your favourite colors!', type: 'array' },
             ],
           })(
-            <Select mode="multiple" placeholder="Please select favourite colors">
+            <Select multiple placeholder="Please select favourite colors">
               <Option value="red">Red</Option>
               <Option value="green">Green</Option>
               <Option value="blue">Blue</Option>
@@ -150,7 +151,7 @@ class Demo extends React.Component {
             valuePropName: 'fileList',
             getValueFromEvent: this.normFile,
           })(
-            <Upload name="logo" action="/upload.do" listType="picture">
+            <Upload name="logo" action="/upload.do" listType="picture" onChange={this.handleUpload}>
               <Button>
                 <Icon type="upload" /> Click to upload
               </Button>
@@ -158,44 +159,13 @@ class Demo extends React.Component {
           )}
         </FormItem>
 
-        <FormItem
-          {...formItemLayout}
-          label="Dragger"
-        >
-          <div className="dropbox">
-            {getFieldDecorator('dragger', {
-              valuePropName: 'fileList',
-              getValueFromEvent: this.normFile,
-            })(
-              <Upload.Dragger name="files" action="/upload.do">
-                <p className="ant-upload-drag-icon">
-                  <Icon type="inbox" />
-                </p>
-                <p className="ant-upload-text">Click or drag file to this area to upload</p>
-                <p className="ant-upload-hint">Support for a single or bulk upload. Strictly prohibit from uploading company data or other band files</p>
-              </Upload.Dragger>
-            )}
-          </div>
-        </FormItem>
-
-        <FormItem
-          wrapperCol={{ span: 12, offset: 6 }}
-        >
+        <FormItem wrapperCol={{ span: 12, offset: 6 }}>
           <Button type="primary" htmlType="submit">Submit</Button>
         </FormItem>
       </Form>
     );
-  }
-}
+  },
+}));
 
-const WrappedDemo = Form.create()(Demo);
-
-ReactDOM.render(<WrappedDemo />, mountNode);
-````
-
-````css
-#components-form-demo-validate-other .dropbox {
-  height: 180px;
-  line-height: 1.5;
-}
+ReactDOM.render(<Demo />, mountNode);
 ````

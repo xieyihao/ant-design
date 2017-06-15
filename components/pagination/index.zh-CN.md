@@ -3,7 +3,6 @@ category: Components
 subtitle: 分页
 type: Navigation
 title: Pagination
-cols: 1
 ---
 
 采用分页的形式分隔长列表，每次只加载一个页面。
@@ -32,5 +31,5 @@ cols: 1
 | onShowSizeChange | pageSize 变化的回调                | Function(current, size)      | noop                     |
 | showQuickJumper  | 是否可以快速跳转至某页             | boolean         | false                    |
 | size             | 当为「small」时，是小尺寸分页      | string        | ""                       |
-| simple           | 当添加该属性时，显示为简单分页     | boolean        | -                       |
+| simple           | 当添加该属性时，显示为简单分页     | object        | -                       |
 | showTotal        | 用于显示数据总量和当前数据顺序     | Function(total, range) | -              |

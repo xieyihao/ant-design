@@ -16,11 +16,13 @@ Communicated with other components.
 ````jsx
 import { Checkbox, Button } from 'antd';
 
-class App extends React.Component {
-  state = {
-    checked: true,
-    disabled: false,
-  };
+const App = React.createClass({
+  getInitialState() {
+    return {
+      checked: true,
+      disabled: false,
+    };
+  },
   render() {
     const label = `${this.state.checked ? 'Checked' : 'Unchecked'}-${this.state.disabled ? 'Disabled' : 'Enabled'}`;
     return (
@@ -48,20 +50,20 @@ class App extends React.Component {
         </p>
       </div>
     );
-  }
-  toggleChecked = () => {
+  },
+  toggleChecked() {
     this.setState({ checked: !this.state.checked });
-  }
-  toggleDisable = () => {
+  },
+  toggleDisable() {
     this.setState({ disabled: !this.state.disabled });
-  }
-  onChange = (e) => {
+  },
+  onChange(e) {
     console.log('checked = ', e.target.checked);
     this.setState({
       checked: e.target.checked,
     });
-  }
-}
+  },
+});
 
 ReactDOM.render(<App />, mountNode);
 ````

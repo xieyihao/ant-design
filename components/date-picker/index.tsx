@@ -19,10 +19,9 @@ export interface PickerProps {
   popupStyle?: React.CSSProperties;
   locale?: any;
   size?: 'large' | 'small' | 'default';
-  getCalendarContainer?: (triggerNode: Element) => HTMLElement;
+  getCalendarContainer?: (trigger: any) => React.ReactNode;
   open?: boolean;
   onOpenChange?: (status: boolean) => void;
-  disabledDate?: (current: moment.Moment) => boolean;
 }
 
 export interface SinglePickerProps {
@@ -37,18 +36,14 @@ export interface DatePickerProps extends PickerProps, SinglePickerProps {
   showToday?: boolean;
   open?: boolean;
   toggleOpen?: (e: {open: boolean}) => void;
-  disabledTime?: (current: moment.Moment) => {
-    disabledHours?: () => [number, number],
-    disabledMinutes?: () => [number, number],
-    disabledSeconds?: () => [number, number],
-  };
+  disabledDate?: (current: moment.Moment) => boolean;
   onOpenChange?: (status: boolean) => void;
-  onOk?: () => void;
   placeholder?: string;
 }
 const DatePicker = wrapPicker(createPicker(RcCalendar)) as React.ClassicComponentClass<DatePickerProps>;
 
 export interface MonthPickerProps extends PickerProps, SinglePickerProps {
+  disabledDate?: (current: moment.Moment) => boolean;
   placeholder?: string;
 }
 const MonthPicker = wrapPicker(createPicker(MonthCalendar), 'YYYY-MM');
@@ -58,16 +53,9 @@ export interface RangePickerProps extends PickerProps {
   defaultValue?: [moment.Moment, moment.Moment];
   defaultPickerValue?: [moment.Moment, moment.Moment];
   onChange?: (dates: [moment.Moment, moment.Moment], dateStrings: [string, string]) => void;
-  onOk?: () => void;
   showTime?: TimePickerProps | boolean;
   ranges?: {
     [range: string]: moment.Moment[],
-  };
-  placeholder?: [string, string];
-  disabledTime?: (current: moment.Moment, type: string) => {
-    disabledHours?: () => [number, number],
-    disabledMinutes?: () => [number, number],
-    disabledSeconds?: () => [number, number],
   };
 }
 

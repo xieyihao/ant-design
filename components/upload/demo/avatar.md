@@ -55,7 +55,7 @@ class Avatar extends React.Component {
         className="avatar-uploader"
         name="avatar"
         showUploadList={false}
-        action="//jsonplaceholder.typicode.com/posts/"
+        action="/upload.do"
         beforeUpload={beforeUpload}
         onChange={this.handleChange}
       >

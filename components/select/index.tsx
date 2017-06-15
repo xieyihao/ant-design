@@ -1,15 +1,18 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { PropTypes } from 'react';
 import RcSelect, { Option, OptGroup } from 'rc-select';
 import classNames from 'classnames';
-import warning from '../_util/warning';
+
+export type SelectValue = string | any[] | { key: string, label: React.ReactNode } |
+ Array<{ key: string, label: React.ReactNode }>;
 
 export interface AbstractSelectProps {
-  prefixCls?: string;
-  className?: string;
   size?: 'default' | 'large' | 'small';
+  className?: string;
   notFoundContent?: React.ReactNode | null;
+  prefixCls?: string;
   transitionName?: string;
+  optionLabelProp?: string;
   choiceTransitionName?: string;
   showSearch?: boolean;
   allowClear?: boolean;
@@ -18,23 +21,13 @@ export interface AbstractSelectProps {
   placeholder?: string;
 }
 
-export interface LabeledValue {
-  key: string;
-  label: React.ReactNode;
-}
-
-export type SelectValue = string | any[] | LabeledValue | LabeledValue[];
-
 export interface SelectProps extends AbstractSelectProps {
   value?: SelectValue;
   defaultValue?: SelectValue;
-  mode?: 'default' | 'multiple' | 'tags' | 'combobox';
-  multiple?: boolean;
-  tags?: boolean;
   combobox?: boolean;
-  optionLabelProp?: string;
+  multiple?: boolean;
   filterOption?: boolean | ((inputValue: string, option: Object) => any);
-  onChange?: (value: SelectValue) => void;
+  tags?: boolean;
   onSelect?: (value: SelectValue, option: Object) => any;
   onDeselect?: (value: SelectValue) => any;
   onSearch?: (value: string) => any;
@@ -42,9 +35,10 @@ export interface SelectProps extends AbstractSelectProps {
   optionFilterProp?: string;
   defaultActiveFirstOption?: boolean;
   labelInValue?: boolean;
-  getPopupContainer?: (triggerNode: Element) => HTMLElement;
+  getPopupContainer?: (triggerNode: React.ReactNode) => React.ReactNode | HTMLElement;
   dropdownStyle?: React.CSSProperties;
   dropdownMenuStyle?: React.CSSProperties;
+  onChange?: (value: SelectValue) => void;
   tokenSeparators?: string[];
   getInputElement?: () => React.ReactElement<any>;
 }
@@ -90,64 +84,38 @@ export default class Select extends React.Component<SelectProps, any> {
     choiceTransitionName: PropTypes.string,
   };
 
-  static contextTypes = {
-    antLocale: PropTypes.object,
-  };
-
   context: SelectContext;
-
-  getLocale() {
-    const { antLocale } = this.context;
-    if (antLocale && antLocale.Select) {
-      return antLocale.Select;
-    }
-    return {
-      notFoundContent: '无匹配结果',
-    };
-  }
 
   render() {
     const {
       prefixCls,
       className = '',
       size,
-      mode,
-      // @deprecated
-      multiple,
-      tags,
       combobox,
-      ...restProps,
     } = this.props;
-    warning(
-      !multiple && !tags && !combobox,
-      '`Select[multiple|tags|combobox]` is deprecated, please use `Select[mode]` instead.',
-    );
+
+    let { notFoundContent = 'Not Found', optionLabelProp } = this.props;
 
     const cls = classNames({
       [`${prefixCls}-lg`]: size === 'large',
       [`${prefixCls}-sm`]: size === 'small',
     }, className);
 
-    const locale = this.getLocale();
-    let { notFoundContent = locale.notFoundContent, optionLabelProp } = this.props;
-    const isCombobox = mode === 'combobox' || combobox;
-    if (isCombobox) {
+    const { antLocale } = this.context;
+    if (antLocale && antLocale.Select) {
+      notFoundContent = ('notFoundContent' in this.props)
+        ? notFoundContent : antLocale.Select.notFoundContent;
+    }
+
+    if (combobox) {
       notFoundContent = null;
       // children 带 dom 结构时，无法填入输入框
       optionLabelProp = optionLabelProp || 'value';
     }
 
-    const modeConfig = {
-      multiple: mode === 'multiple' || multiple,
-      tags: mode === 'tags' || tags,
-      combobox: isCombobox,
-    };
-
     return (
       <RcSelect
-        {...restProps}
-        {...modeConfig}
-        prefixCls={prefixCls}
+        {...this.props}
         className={cls}
         optionLabelProp={optionLabelProp || 'children'}
         notFoundContent={notFoundContent}

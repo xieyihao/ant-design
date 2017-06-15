@@ -1,13 +1,8 @@
 import React from 'react';
-import { shallow, render } from 'enzyme';
+import { shallow } from 'enzyme';
 import Radio from '../radio';
 
 describe('Radio', () => {
-  it('should render correctly', () => {
-    const wrapper = render(<Radio className="customized">Test</Radio>);
-    expect(wrapper).toMatchSnapshot();
-  });
-
   it('responses hover events', () => {
     const onMouseEnter = jest.fn();
     const onMouseLeave = jest.fn();

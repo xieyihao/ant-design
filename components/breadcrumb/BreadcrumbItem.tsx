@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { PropTypes } from 'react';
 
 export interface BreadcrumbItemProps {
   prefixCls?: string;
@@ -32,14 +32,11 @@ export default class BreadcrumbItem extends React.Component<BreadcrumbItemProps,
     } else {
       link = <span className={`${prefixCls}-link`} {...restProps}>{children}</span>;
     }
-    if (children) {
-      return (
-        <span>
-          {link}
-          <span className={`${prefixCls}-separator`}>{separator}</span>
-        </span>
-      );
-    }
-    return null;
+    return (
+      <span>
+        {link}
+        <span className={`${prefixCls}-separator`}>{separator}</span>
+      </span>
+    );
   }
 }

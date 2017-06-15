@@ -40,38 +40,41 @@ class NumericInput extends React.Component {
       this.props.onChange(value);
     }
   }
+
   // '.' at the end or only '-' in the input box.
   onBlur = () => {
-    const { value, onBlur, onChange } = this.props;
+    const { value } = this.props;
     if (value.charAt(value.length - 1) === '.' || value === '-') {
-      onChange({ value: value.slice(0, -1) });
+      this.props.onChange({ value: value.slice(0, -1) });
     }
-    if (onBlur) {
-      onBlur();
+    if (this.props.onBlur) {
+      this.props.onBlur();
     }
   }
+
   render() {
     const { value } = this.props;
-    const title = value ? (
-      <span className="numeric-input-title">
+    const title = (value ?
+      (<span className="numeric-input-title">
         {value !== '-' ? formatNumber(value) : '-'}
-      </span>
-    ) : 'Input a number';
+      </span>) : '');
     return (
-      <Tooltip
-        trigger={['focus']}
-        title={title}
-        placement="topLeft"
-        overlayClassName="numeric-input"
-      >
-        <Input
-          {...this.props}
-          onChange={this.onChange}
-          onBlur={this.onBlur}
-          placeholder="Input a number"
-          maxLength="25"
-        />
-      </Tooltip>
+      <div>
+        <Tooltip
+          trigger={['focus']}
+          title={title}
+          placement="topLeft"
+          overlayClassName="numeric-input"
+        >
+          <Input
+            {...this.props}
+            onChange={this.onChange}
+            onBlur={this.onBlur}
+            placeholder="input a number"
+            maxLength="25"
+          />
+        </Tooltip>
+      </div>
     );
   }
 }
@@ -85,7 +88,12 @@ class NumericInputDemo extends React.Component {
     this.setState({ value });
   }
   render() {
-    return <NumericInput style={{ width: 120 }} value={this.state.value} onChange={this.onChange} />;
+    const { value } = this.state;
+    return (
+      <div className="numeric-input-demo">
+        <NumericInput value={value} onChange={this.onChange} />
+      </div>
+    );
   }
 }
 
@@ -102,5 +110,9 @@ or the height is not enough when content is empty */
 
 .numeric-input .numeric-input-title {
   font-size: 14px;
+}
+
+.numeric-input-demo {
+  width: 120px;
 }
 ````

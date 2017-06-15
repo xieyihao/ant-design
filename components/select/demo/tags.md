@@ -27,8 +27,7 @@ function handleChange(value) {
 }
 
 ReactDOM.render(
-  <Select
-    mode="tags"
+  <Select tags
     style={{ width: '100%' }}
     searchPlaceholder="标签模式"
     onChange={handleChange}

@@ -1,4 +1,5 @@
-import React, { cloneElement } from 'react';
+import React from 'react';
+import { cloneElement } from 'react';
 import { findDOMNode } from 'react-dom';
 import RcTabs, { TabPane } from 'rc-tabs';
 import ScrollableInkTabBar from 'rc-tabs/lib/ScrollableInkTabBar';
@@ -8,7 +9,7 @@ import Icon from '../icon';
 import warning from '../_util/warning';
 import isFlexSupported from '../_util/isFlexSupported';
 
-export type TabsType = 'line' | 'card' | 'editable-card';
+export type TabsType = 'line' | 'card' | 'editable-card'
 export type TabsPosition = 'top' | 'right' | 'bottom' | 'left';
 
 export interface TabsProps {
@@ -17,10 +18,7 @@ export interface TabsProps {
   hideAdd?: boolean;
   onChange?: (activeKey: string) => void;
   onTabClick?: Function;
-  onPrevClick?: React.MouseEventHandler<any>;
-  onNextClick?: React.MouseEventHandler<any>;
   tabBarExtraContent?: React.ReactNode | null;
-  tabBarStyle?: React.CSSProperties;
   type?: TabsType;
   tabPosition?: TabsPosition;
   onEdit?: (targetKey: string, action: any) => void;
@@ -28,7 +26,7 @@ export interface TabsProps {
   style?: React.CSSProperties;
   prefixCls?: string;
   className?: string;
-  animated?: boolean | { inkBar: boolean; tabPane: boolean; };
+  animated?: boolean;
 }
 
 // Tabs
@@ -36,7 +34,6 @@ export interface TabPaneProps {
   /** 选项卡头显示文字 */
   tab?: React.ReactNode | string;
   style?: React.CSSProperties;
-  closable?: boolean;
   className?: string;
   disabled?: boolean;
 }
@@ -47,6 +44,7 @@ export default class Tabs extends React.Component<TabsProps, any> {
   static defaultProps = {
     prefixCls: 'ant-tabs',
     hideAdd: false,
+    animated: true,
   };
 
   createNewTab = (targetKey) => {
@@ -92,28 +90,13 @@ export default class Tabs extends React.Component<TabsProps, any> {
       tabPosition,
       children,
       tabBarExtraContent,
-      tabBarStyle,
       hideAdd,
       onTabClick,
-      onPrevClick,
-      onNextClick,
-      animated = true,
+      animated,
     } = this.props;
-
-    let { inkBarAnimated, tabPaneAnimated } = typeof animated === 'object' ? {
-      inkBarAnimated: animated.inkBar, tabPaneAnimated: animated.tabPane,
-    } : {
-      inkBarAnimated: animated, tabPaneAnimated: animated,
-    };
-
-    // card tabs should not have animation
-    if (type !== 'line') {
-      tabPaneAnimated = 'animated' in this.props ? tabPaneAnimated : false;
-    }
-
     warning(
       !(type.indexOf('card') >= 0 && size === 'small'),
-      'Tabs[type=card|editable-card] doesn\'t have small size, it\'s by designed.',
+      'Tabs[type=card|editable-card] doesn\'t have small size, it\'s by designed.'
     );
     let cls = classNames(className, {
       [`${prefixCls}-mini`]: size === 'small' || size as string === 'mini',
@@ -127,19 +110,11 @@ export default class Tabs extends React.Component<TabsProps, any> {
     if (type === 'editable-card') {
       childrenWithClose = [];
       React.Children.forEach(children as React.ReactNode, (child: React.ReactElement<any>, index) => {
-        let closable = child.props.closable;
-        closable = typeof closable === 'undefined' ? true : closable;
-        const closeIcon = closable ? (
-           <Icon
-             type="close"
-             onClick={e => this.removeTab(child.key, e)}
-           />
-        ) : null;
         childrenWithClose.push(cloneElement(child, {
           tab: (
-            <div className={closable ? undefined : `${prefixCls}-tab-unclosable`}>
+            <div>
               {child.props.tab}
-              {closeIcon}
+              <Icon type="close" onClick={(e) => this.removeTab(child.key, e)} />
             </div>
           ),
           key: child.key || index,
@@ -164,12 +139,8 @@ export default class Tabs extends React.Component<TabsProps, any> {
 
     const renderTabBar = () => (
       <ScrollableInkTabBar
-        inkBarAnimated={inkBarAnimated}
         extraContent={tabBarExtraContent}
         onTabClick={onTabClick}
-        onPrevClick={onPrevClick}
-        onNextClick={onNextClick}
-        style={tabBarStyle}
       />
     );
 
@@ -179,7 +150,7 @@ export default class Tabs extends React.Component<TabsProps, any> {
         className={cls}
         tabBarPosition={tabPosition}
         renderTabBar={renderTabBar}
-        renderTabContent={() => <TabContent animated={tabPaneAnimated} animatedWithMargin />}
+        renderTabContent={() => <TabContent animated={animated} animatedWithMargin />}
         onChange={this.handleChange}
       >
         {childrenWithClose || children}

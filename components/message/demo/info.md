@@ -16,11 +16,10 @@ Normal messages as feedbacks.
 ````jsx
 import { message, Button } from 'antd';
 
-const info = () => {
+const info = function () {
   message.info('This is a normal message');
 };
 
-ReactDOM.render(
-  <Button type="primary" onClick={info}>Display normal message</Button>
+ReactDOM.render(<Button type="primary" onClick={info}>Display normal message</Button>
 , mountNode);
 ````

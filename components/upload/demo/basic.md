@@ -11,14 +11,14 @@ title:
 
 ## en-US
 
-Classic mode. File selection dialog pops up when upload button is clicked.
+Classic mode. File selection dialog pops up when upload button is clicked 
 
 ````jsx
 import { Upload, message, Button, Icon } from 'antd';
 
 const props = {
   name: 'file',
-  action: '//jsonplaceholder.typicode.com/posts/',
+  action: '/upload.do',
   headers: {
     authorization: 'authorization-text',
   },

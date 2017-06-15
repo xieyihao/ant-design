@@ -1,5 +1,6 @@
 import React from 'react';
 import { mount, render } from 'enzyme';
+import { renderToJson } from 'enzyme-to-json';
 import RcTimePicker from 'rc-time-picker/lib/TimePicker';
 import TimePicker from '..';
 
@@ -10,6 +11,6 @@ describe('TimePicker', () => {
     const rcTimePicker = wrapper.find(RcTimePicker);
     const addonWrapper = render(rcTimePicker.props().addon());
 
-    expect(addonWrapper).toMatchSnapshot();
+    expect(renderToJson(addonWrapper)).toMatchSnapshot();
   });
 });

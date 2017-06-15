@@ -22,10 +22,6 @@ function onChange(value, dateString) {
   console.log('Formatted Selected Time: ', dateString);
 }
 
-function onOk(value) {
-  console.log('onOk: ', value);
-}
-
 ReactDOM.render(
   <div>
     <DatePicker
@@ -33,7 +29,6 @@ ReactDOM.render(
       format="YYYY-MM-DD HH:mm:ss"
       placeholder="Select Time"
       onChange={onChange}
-      onOk={onOk}
     />
     <br />
     <RangePicker
@@ -41,7 +36,6 @@ ReactDOM.render(
       format="YYYY-MM-DD HH:mm:ss"
       placeholder={['Start Time', 'End Time']}
       onChange={onChange}
-      onOk={onOk}
     />
   </div>
 , mountNode);

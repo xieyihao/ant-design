@@ -17,15 +17,17 @@ title:
 ````jsx
 import { Transfer } from 'antd';
 
-class App extends React.Component {
-  state = {
-    mockData: [],
-    targetKeys: [],
-  }
+const App = React.createClass({
+  getInitialState() {
+    return {
+      mockData: [],
+      targetKeys: [],
+    };
+  },
   componentDidMount() {
     this.getMock();
-  }
-  getMock = () => {
+  },
+  getMock() {
     const targetKeys = [];
     const mockData = [];
     for (let i = 0; i < 2000; i++) {
@@ -41,11 +43,11 @@ class App extends React.Component {
       mockData.push(data);
     }
     this.setState({ mockData, targetKeys });
-  }
-  handleChange = (targetKeys, direction, moveKeys) => {
+  },
+  handleChange(targetKeys, direction, moveKeys) {
     console.log(targetKeys, direction, moveKeys);
     this.setState({ targetKeys });
-  }
+  },
   render() {
     return (
       <Transfer
@@ -55,8 +57,8 @@ class App extends React.Component {
         render={item => item.title}
       />
     );
-  }
-}
+  },
+});
 
 ReactDOM.render(<App />, mountNode);
 ````

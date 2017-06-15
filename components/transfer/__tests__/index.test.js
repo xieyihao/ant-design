@@ -1,6 +1,7 @@
 /* eslint no-use-before-define: "off" */
 import React from 'react';
 import { render, mount } from 'enzyme';
+import { renderToJson } from 'enzyme-to-json';
 import Transfer from '..';
 import TransferList from '../list';
 import TransferOperation from '../operation';
@@ -23,20 +24,6 @@ const listCommonProps = {
   }],
   selectedKeys: ['a'],
   targetKeys: ['b'],
-  lazy: false,
-};
-
-const listDisabledProps = {
-  dataSource: [{
-    key: 'a',
-    title: 'a',
-    disabled: true,
-  }, {
-    key: 'b',
-    title: 'b',
-  }],
-  selectedKeys: ['a', 'b'],
-  targetKeys: [],
   lazy: false,
 };
 
@@ -87,7 +74,7 @@ const searchTransferProps = {
 describe('Transfer', () => {
   it('should render correctly', () => {
     const wrapper = render(<Transfer {...listCommonProps} />);
-    expect(wrapper).toMatchSnapshot();
+    expect(renderToJson(wrapper)).toMatchSnapshot();
   });
 
   it('should move selected keys to corresponding list', () => {
@@ -95,13 +82,6 @@ describe('Transfer', () => {
     const wrapper = mount(<Transfer {...listCommonProps} onChange={handleChange} />);
     wrapper.find(TransferOperation).find(Button).at(1).simulate('click'); // move selected keys to right list
     expect(handleChange).toHaveBeenCalledWith(['a', 'b'], 'right', ['a']);
-  });
-
-  it('should move selected keys expect disabled to corresponding list', () => {
-    const handleChange = jest.fn();
-    const wrapper = mount(<Transfer {...listDisabledProps} onChange={handleChange} />);
-    wrapper.find(TransferOperation).find(Button).at(1).simulate('click'); // move selected keys to right list
-    expect(handleChange).toHaveBeenCalledWith(['b'], 'right', ['b']);
   });
 
   it('should uncheck checkbox when click on checked item', () => {
@@ -211,41 +191,5 @@ describe('Transfer', () => {
       .simulate('change');
     wrapper.find(TransferOperation).find(Button).at(1).simulate('click');
     expect(handleChange).toHaveBeenCalledWith(['1', '3', '4'], 'right', ['1']);
-  });
-
-  it('should check correctly when there is a search text', () => {
-    const props = { ...listCommonProps };
-    delete props.targetKeys;
-    delete props.selectedKeys;
-    const handleSelectChange = jest.fn();
-    const wrapper = mount(
-      <Transfer {...props} showSearch onSelectChange={handleSelectChange} render={item => item.title} />
-    );
-    wrapper.find(TransferItem).filterWhere(n => n.prop('item').key === 'b').simulate('click');
-    expect(handleSelectChange).toHaveBeenLastCalledWith(['b'], []);
-    wrapper.find(TransferSearch).at(0).find('input').simulate('change', { target: { value: 'a' } });
-    wrapper.find(TransferList).at(0).find('.ant-transfer-list-header input[type="checkbox"]').simulate('change');
-    expect(handleSelectChange).toHaveBeenLastCalledWith(['b', 'a'], []);
-    wrapper.find(TransferList).at(0).find('.ant-transfer-list-header input[type="checkbox"]').simulate('change');
-    expect(handleSelectChange).toHaveBeenLastCalledWith(['b'], []);
-  });
-
-  it('should show sorted targetkey', () => {
-    const sortedTargetKeyProps = {
-      dataSource: [{
-        key: 'a',
-        title: 'a',
-      }, {
-        key: 'b',
-        title: 'b',
-      }, {
-        key: 'c',
-        title: 'c',
-      }],
-      targetKeys: ['c', 'b'],
-      lazy: false,
-    };
-    const wrapper = render(<Transfer {...sortedTargetKeyProps} render={item => item.title} />);
-    expect(wrapper).toMatchSnapshot();
   });
 });

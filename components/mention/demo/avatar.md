@@ -1,6 +1,6 @@
 ---
 order: 3
-title:
+title: 
   zh-CN: 头像
   en-US: Icon Image
 ---
@@ -26,15 +26,18 @@ const webFrameworks = [
   { name: 'Flask', type: 'Python', icon: 'https://zos.alipayobjects.com/rmsportal/xaypBUijfnpAlXE.png' },
 ];
 
-class CustomNavMention extends React.Component {
-  state = {
-    suggestions: [],
-  }
-  onSearchChange = (value) => {
+const CustomNavMention = React.createClass({
+  getInitialState() {
+    return {
+      suggestions: [],
+    };
+  },
+  onSearchChange(value) {
     const searchValue = value.toLowerCase();
     const filtered = webFrameworks.filter(item =>
       item.name.toLowerCase().indexOf(searchValue) !== -1
     );
+
     const suggestions = filtered.map(suggestion =>
       <Nav value={suggestion.name} data={suggestion} disabled={suggestion.disabled}>
         <span>
@@ -42,8 +45,10 @@ class CustomNavMention extends React.Component {
           {suggestion.name} - {suggestion.type}
         </span>
       </Nav>);
-    this.setState({ suggestions });
-  }
+    this.setState({
+      suggestions,
+    });
+  },
   render() {
     const { suggestions } = this.state;
     return (
@@ -53,8 +58,11 @@ class CustomNavMention extends React.Component {
         onSearchChange={this.onSearchChange}
       />
     );
-  }
-}
+  },
+});
 
-ReactDOM.render(<CustomNavMention />, mountNode);
+ReactDOM.render(
+  <CustomNavMention />,
+  mountNode
+);
 ````

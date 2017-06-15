@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { PropTypes } from 'react';
 import { findDOMNode } from 'react-dom';
 import classNames from 'classnames';
 import Animate from 'rc-animate';
@@ -13,7 +13,6 @@ export interface SpinProps {
   size?: 'small' | 'default' | 'large';
   tip?: string;
   delay?: number;
-  wrapperClassName?: string;
 }
 
 export default class Spin extends React.Component<SpinProps, any> {
@@ -21,7 +20,6 @@ export default class Spin extends React.Component<SpinProps, any> {
     prefixCls: 'ant-spin',
     spinning: true,
     size: 'default',
-    wrapperClassName: '',
   };
 
   static propTypes = {
@@ -29,7 +27,6 @@ export default class Spin extends React.Component<SpinProps, any> {
     className: PropTypes.string,
     spinning: PropTypes.bool,
     size: PropTypes.oneOf(['small', 'default', 'large']),
-    wrapperClassName: PropTypes.string,
   };
 
   debounceTimeout: number;
@@ -85,7 +82,7 @@ export default class Spin extends React.Component<SpinProps, any> {
     }
   }
   render() {
-    const { className, size, prefixCls, tip, wrapperClassName, ...restProps } = this.props;
+    const { className, size, prefixCls, tip, ...restProps } = this.props;
     const { spinning } = this.state;
 
     const spinClassName = classNames(prefixCls, {
@@ -113,10 +110,6 @@ export default class Spin extends React.Component<SpinProps, any> {
       </div>
     );
     if (this.isNestedPattern()) {
-      let animateClassName = prefixCls + '-nested-loading';
-      if (wrapperClassName) {
-        animateClassName += ' ' + wrapperClassName;
-      }
       const containerClassName = classNames({
         [`${prefixCls}-container`]: true,
         [`${prefixCls}-blur`]: spinning,
@@ -125,7 +118,7 @@ export default class Spin extends React.Component<SpinProps, any> {
         <Animate
           {...divProps}
           component="div"
-          className={animateClassName}
+          className={`${prefixCls}-nested-loading`}
           style={null}
           transitionName="fade"
         >

@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { changeConfirmLocale } from '../modal/locale';
 
 export interface LocaleProviderProps {
@@ -19,11 +18,11 @@ export interface LocaleProviderProps {
 
 export default class LocaleProvider extends React.Component<LocaleProviderProps, any> {
   static propTypes = {
-    locale: PropTypes.object,
+    locale: React.PropTypes.object,
   };
 
   static childContextTypes = {
-    antLocale: PropTypes.object,
+    antLocale: React.PropTypes.object,
   };
 
   getChildContext() {
@@ -35,7 +34,7 @@ export default class LocaleProvider extends React.Component<LocaleProviderProps,
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.componentDidUpdate();
   }
 

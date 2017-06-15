@@ -36,6 +36,7 @@ const eslintrc = {
     'consistent-return': 0,
     'no-redeclare': 0,
     'react/require-extension': 0,
+    'react/jsx-indent': 0,
     'jsx-a11y/no-static-element-interactions': 0,
     'jsx-a11y/anchor-has-content': 0,
     'react/no-danger': 0,
@@ -56,6 +57,7 @@ if (process.env.RUN_ENV === 'DEMO') {
     'eol-last': 0,
     'prefer-rest-params': 0,
     'react/no-multi-comp': 0,
+    'react/prefer-es6-class': 0,
     'jsx-a11y/href-no-hash': 0,
     'import/newline-after-import': 0,
   });

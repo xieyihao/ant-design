@@ -22,11 +22,13 @@ Using the [AutoComplete](/components/auto-complete/) component is strongly recom
 import { Select } from 'antd';
 const Option = Select.Option;
 
-class App extends React.Component {
-  state = {
-    options: [],
-  }
-  handleChange = (value) => {
+const Test = React.createClass({
+  getInitialState() {
+    return {
+      options: [],
+    };
+  },
+  handleChange(value) {
     let options;
     if (!value || value.indexOf('@') >= 0) {
       options = [];
@@ -37,12 +39,11 @@ class App extends React.Component {
       });
     }
     this.setState({ options });
-  }
+  },
   render() {
     // filterOption needs to be false，as the value is dynamically generated
     return (
-      <Select
-        mode="combobox"
+      <Select combobox
         style={{ width: 200 }}
         onChange={this.handleChange}
         filterOption={false}
@@ -51,8 +52,8 @@ class App extends React.Component {
         {this.state.options}
       </Select>
     );
-  }
-}
+  },
+});
 
-ReactDOM.render(<App />, mountNode);
+ReactDOM.render(<Test />, mountNode);
 ````

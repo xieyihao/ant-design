@@ -59,7 +59,4 @@ ReactDOM.render(<App />, mountNode);
 .anticon-close-circle:hover {
   color: #999;
 }
-.anticon-close-circle:active {
-  color: #666;
-}
 ````

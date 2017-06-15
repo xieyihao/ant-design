@@ -48,10 +48,10 @@ function getStyle() {
     }
     #header.home-nav-white {
       background: rgba(255, 255, 255, 0.91);
-      border-bottom-color: #ebedee;
+      border-bottom-color: #EBEDEE;
     }
     .home-nav-white #search-box {
-      border-left-color: #ebedee;
+      border-left-color: #EBEDEE;
     }
     .home-nav-white #nav a {
       color: rgba(0, 0, 0, 0.65);
@@ -93,6 +93,9 @@ function getStyle() {
     }
     #footer a {
       color: #eee;
+    }
+    .down {
+      animation: upDownMove 1.2s ease-in-out infinite;
     }
   `;
 }

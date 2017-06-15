@@ -28,16 +28,18 @@ You can gain full control over filelist by configuring `fileList`. You can accom
 ````jsx
 import { Upload, Button, Icon } from 'antd';
 
-class MyUpload extends React.Component {
-  state = {
-    fileList: [{
-      uid: -1,
-      name: 'xxx.png',
-      status: 'done',
-      url: 'http://www.baidu.com/xxx.png',
-    }],
-  }
-  handleChange = (info) => {
+const MyUpload = React.createClass({
+  getInitialState() {
+    return {
+      fileList: [{
+        uid: -1,
+        name: 'xxx.png',
+        status: 'done',
+        url: 'http://www.baidu.com/xxx.png',
+      }],
+    };
+  },
+  handleChange(info) {
     let fileList = info.fileList;
 
     // 1. Limit the number of uploaded files
@@ -62,10 +64,10 @@ class MyUpload extends React.Component {
     });
 
     this.setState({ fileList });
-  }
+  },
   render() {
     const props = {
-      action: '//jsonplaceholder.typicode.com/posts/',
+      action: '/upload.do',
       onChange: this.handleChange,
       multiple: true,
     };
@@ -76,8 +78,8 @@ class MyUpload extends React.Component {
         </Button>
       </Upload>
     );
-  }
-}
+  },
+});
 
 ReactDOM.render(<MyUpload />, mountNode);
 ````

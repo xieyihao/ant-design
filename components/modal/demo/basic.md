@@ -16,25 +16,27 @@ Basic modal dialog.
 ````jsx
 import { Modal, Button } from 'antd';
 
-class App extends React.Component {
-  state = { visible: false }
-  showModal = () => {
+const App = React.createClass({
+  getInitialState() {
+    return { visible: false };
+  },
+  showModal() {
     this.setState({
       visible: true,
     });
-  }
-  handleOk = (e) => {
+  },
+  handleOk() {
+    console.log('Clicked OK');
+    this.setState({
+      visible: false,
+    });
+  },
+  handleCancel(e) {
     console.log(e);
     this.setState({
       visible: false,
     });
-  }
-  handleCancel = (e) => {
-    console.log(e);
-    this.setState({
-      visible: false,
-    });
-  }
+  },
   render() {
     return (
       <div>
@@ -48,8 +50,8 @@ class App extends React.Component {
         </Modal>
       </div>
     );
-  }
-}
+  },
+});
 
 ReactDOM.render(<App />, mountNode);
 ````

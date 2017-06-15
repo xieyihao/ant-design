@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import { PropTypes } from 'react';
 import React from 'react';
 import Icon from '../icon';
 import { Circle } from 'rc-progress';
@@ -12,7 +12,7 @@ const statusColorMap = {
 export interface ProgressProps {
   prefixCls?: string;
   className?: string;
-  type?: 'line' | 'circle' | 'dashboard';
+  type?: 'line' | 'circle';
   percent?: number;
   format?: (percent: number) => string;
   status?: 'success' | 'active' | 'exception';
@@ -21,8 +21,6 @@ export interface ProgressProps {
   trailColor?: string;
   width?: number;
   style?: React.CSSProperties;
-  gapDegree?: number;
-  gapPosition?: 'top' | 'bottom' | 'left' | 'right';
 }
 
 export default class Progress extends React.Component<ProgressProps, any> {
@@ -39,21 +37,20 @@ export default class Progress extends React.Component<ProgressProps, any> {
 
   static propTypes = {
     status: PropTypes.oneOf(['normal', 'exception', 'active', 'success']),
-    type: PropTypes.oneOf(['line', 'circle', 'dashboard']),
+    type: PropTypes.oneOf(['line', 'circle']),
     showInfo: PropTypes.bool,
     percent: PropTypes.number,
     width: PropTypes.number,
     strokeWidth: PropTypes.number,
     trailColor: PropTypes.string,
     format: PropTypes.func,
-    gapDegree: PropTypes.number,
   };
 
   render() {
     const props = this.props;
     const {
       prefixCls, className, percent = 0, status, format, trailColor,
-      type, strokeWidth, width, showInfo, gapDegree = 0, gapPosition, ...restProps,
+      type, strokeWidth, width, showInfo, ...restProps,
     } = props;
     const progressStatus = parseInt(percent.toString(), 10) >= 100 && !('status' in props) ?
       'success' : (status || 'normal');
@@ -63,7 +60,7 @@ export default class Progress extends React.Component<ProgressProps, any> {
 
     if (showInfo) {
       let text;
-      const iconType = (type === 'circle' || type === 'dashboard') ? '' : '-circle';
+      const iconType = type === 'circle' ? '' : '-circle';
       if (progressStatus === 'exception') {
         text = format ? textFormatter(percent) : <Icon type={`cross${iconType}`} />;
       } else if (progressStatus === 'success') {
@@ -89,7 +86,7 @@ export default class Progress extends React.Component<ProgressProps, any> {
           {progressInfo}
         </div>
       );
-    } else if (type === 'circle' || type === 'dashboard') {
+    } else if (type === 'circle') {
       const circleSize = width || 132;
       const circleStyle = {
         width: circleSize,
@@ -97,8 +94,6 @@ export default class Progress extends React.Component<ProgressProps, any> {
         fontSize: circleSize * 0.16 + 6,
       };
       const circleWidth = strokeWidth || 6;
-      const gapPos = gapPosition || type === 'dashboard' && 'bottom' || 'top';
-      const gapDeg = gapDegree || type === 'dashboard' && 75;
       progress = (
         <div className={`${prefixCls}-inner`} style={circleStyle}>
           <Circle
@@ -107,9 +102,6 @@ export default class Progress extends React.Component<ProgressProps, any> {
             trailWidth={circleWidth}
             strokeColor={statusColorMap[progressStatus]}
             trailColor={trailColor}
-            prefixCls={prefixCls}
-            gapDegree={gapDeg}
-            gapPosition={gapPos}
           />
           {progressInfo}
         </div>
@@ -117,7 +109,7 @@ export default class Progress extends React.Component<ProgressProps, any> {
     }
 
     const classString = classNames(prefixCls, {
-      [`${prefixCls}-${type === 'dashboard' && 'circle' || type}`]: true,
+      [`${prefixCls}-${type}`]: true,
       [`${prefixCls}-status-${progressStatus}`]: true,
       [`${prefixCls}-show-info`]: showInfo,
     }, className);

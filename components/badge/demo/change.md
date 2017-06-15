@@ -17,29 +17,27 @@ The count will be animated as it changes.
 import { Badge, Button, Icon, Switch } from 'antd';
 const ButtonGroup = Button.Group;
 
-class Demo extends React.Component {
-  state = {
-    count: 5,
-    show: true,
-  }
-
-  increase = () => {
+const Test = React.createClass({
+  getInitialState() {
+    return {
+      count: 5,
+      show: true,
+    };
+  },
+  increase() {
     const count = this.state.count + 1;
     this.setState({ count });
-  }
-
-  decline = () => {
+  },
+  decline() {
     let count = this.state.count - 1;
     if (count < 0) {
       count = 0;
     }
     this.setState({ count });
-  }
-
-  onChange = (show) => {
+  },
+  onChange(show) {
     this.setState({ show });
-  }
-
+  },
   render() {
     return (
       <div>
@@ -64,8 +62,8 @@ class Demo extends React.Component {
         </div>
       </div>
     );
-  }
-}
+  },
+});
 
-ReactDOM.render(<Demo />, mountNode);
+ReactDOM.render(<Test />, mountNode);
 ````

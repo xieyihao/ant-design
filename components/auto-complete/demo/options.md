@@ -18,12 +18,13 @@ import { AutoComplete } from 'antd';
 
 const Option = AutoComplete.Option;
 
-class Complete extends React.Component {
-  state = {
-    result: [],
-  }
-
-  handleSearch = (value) => {
+const Complete = React.createClass({
+  getInitialState() {
+    return {
+      result: [],
+    };
+  },
+  handleChange(value) {
     let result;
     if (!value || value.indexOf('@') >= 0) {
       result = [];
@@ -31,8 +32,7 @@ class Complete extends React.Component {
       result = ['gmail.com', '163.com', 'qq.com'].map(domain => `${value}@${domain}`);
     }
     this.setState({ result });
-  }
-
+  },
   render() {
     const { result } = this.state;
     const children = result.map((email) => {
@@ -41,14 +41,14 @@ class Complete extends React.Component {
     return (
       <AutoComplete
         style={{ width: 200 }}
-        onSearch={this.handleSearch}
+        onChange={this.handleChange}
         placeholder="input here"
       >
         {children}
       </AutoComplete>
     );
-  }
-}
+  },
+});
 
 ReactDOM.render(<Complete />, mountNode);
 ````

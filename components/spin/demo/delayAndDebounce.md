@@ -16,11 +16,13 @@ Specifies a delay for loading state. If `spinning` ends during delay, loading st
 ````jsx
 import { Spin, Alert, Switch } from 'antd';
 
-class Card extends React.Component {
-  state = { loading: false }
-  toggle = (value) => {
+const Card = React.createClass({
+  getInitialState() {
+    return { loading: false };
+  },
+  toggle(value) {
     this.setState({ loading: value });
-  }
+  },
   render() {
     const container = (
       <Alert
@@ -35,10 +37,12 @@ class Card extends React.Component {
         Loading state：<Switch checked={this.state.loading} onChange={this.toggle} />
       </div>
     );
-  }
-}
+  },
+});
 
-ReactDOM.render(<Card />, mountNode);
+ReactDOM.render(
+  <Card />
+, mountNode);
 ````
 
 ````css

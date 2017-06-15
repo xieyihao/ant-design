@@ -2,7 +2,7 @@ import CalendarLocale from 'rc-calendar/lib/locale/en_US';
 import TimePickerLocale from '../../time-picker/locale/en_US';
 import assign from 'object-assign';
 
-// Merge into a locale object
+// 统一合并为完整的 Locale
 const locale = {
   lang: assign({
     placeholder: 'Select date',

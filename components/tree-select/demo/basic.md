@@ -17,14 +17,16 @@ The most basic usage.
 import { TreeSelect } from 'antd';
 const TreeNode = TreeSelect.TreeNode;
 
-class Demo extends React.Component {
-  state = {
-    value: undefined,
-  }
-  onChange = (value) => {
+const Demo = React.createClass({
+  getInitialState() {
+    return {
+      value: undefined,
+    };
+  },
+  onChange(value) {
     console.log(arguments);
     this.setState({ value });
-  }
+  },
   render() {
     return (
       <TreeSelect
@@ -48,8 +50,8 @@ class Demo extends React.Component {
         </TreeNode>
       </TreeSelect>
     );
-  }
-}
+  },
+});
 
 ReactDOM.render(<Demo />, mountNode);
 ````

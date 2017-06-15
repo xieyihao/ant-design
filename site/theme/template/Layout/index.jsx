@@ -1,6 +1,5 @@
 import React, { cloneElement } from 'react';
 import ReactDOM from 'react-dom';
-import PropTypes from 'prop-types';
 import { addLocaleData, IntlProvider } from 'react-intl';
 import { LocaleProvider } from 'antd';
 import enUS from 'antd/lib/locale-provider/en_US';
@@ -23,7 +22,7 @@ if (typeof window !== 'undefined') {
 
 export default class Layout extends React.Component {
   static contextTypes = {
-    router: PropTypes.object.isRequired,
+    router: React.PropTypes.object.isRequired,
   }
 
   constructor(props) {
