@@ -330,9 +330,6 @@ export default class Cascader extends React.Component<CascaderProps, any> {
         style={style}
         className={pickerCls}
       >
-        <span className={`${prefixCls}-picker-label`}>
-          {this.getLabel()}
-        </span>
         <Input
           {...inputProps}
           ref="input"
@@ -347,6 +344,9 @@ export default class Cascader extends React.Component<CascaderProps, any> {
           onKeyDown={this.handleKeyDown}
           onChange={showSearch ? this.handleInputChange : undefined}
         />
+        <span className={`${prefixCls}-picker-label`}>
+          {this.getLabel()}
+        </span>
         {clearIcon}
         <Icon type="down" className={arrowCls} />
       </span>

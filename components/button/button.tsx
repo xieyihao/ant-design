@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import omit from 'omit.js';
 import Icon from '../icon';
-import Group from './button-group';
+import omit from 'omit.js';
 
 const rxTwoCNChar = /^[\u4e00-\u9fa5]{2}$/;
 const isTwoCNChar = rxTwoCNChar.test.bind(rxTwoCNChar);
@@ -45,7 +44,6 @@ export interface ButtonProps {
   size?: ButtonSize;
   onClick?: React.FormEventHandler<any>;
   onMouseUp?: React.FormEventHandler<any>;
-  onMouseDown?: React.FormEventHandler<any>;
   loading?: boolean | { delay?: number };
   disabled?: boolean;
   style?: React.CSSProperties;
@@ -55,7 +53,7 @@ export interface ButtonProps {
 }
 
 export default class Button extends React.Component<ButtonProps, any> {
-  static Group: typeof Group;
+  static Group: any;
   static __ANT_BUTTON = true;
 
   static defaultProps = {

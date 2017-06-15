@@ -34,7 +34,7 @@ Following the Ant Design specification, we developed a React UI library `antd` t
 
 ## Environment Support
 
-* Modern browsers and Internet Explorer 9+ (with [polyfills](https://ant.design/docs/react/getting-started#Compatibility))
+* Modern browsers and Internet Explorer 9+
 * Server-side Rendering
 * [Electron](http://electron.atom.io/)
 

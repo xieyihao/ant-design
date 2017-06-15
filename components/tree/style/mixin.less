@@ -4,6 +4,7 @@
 @tree-showline-open-icon: "\e621";
 @tree-showline-close-icon: "\e645";
 @tree-doc-icon: "\e664";
+@tree-showline-icon-color: @text-color-secondary;
 
 .antTreeSwitcherIcon(@type: "tree-default-open-icon") {
   &:after {
@@ -11,7 +12,8 @@
     display: inline-block;
     .iconfont-font(@@type);
     font-weight: bold;
-    transition: transform .3s;
+    color: @text-color;
+    transition: transform .3s ease;
   }
 }
 
@@ -22,6 +24,7 @@
     .iconfont-font(@@type);
     vertical-align: baseline;
     font-weight: normal;
-    transition: transform .3s;
+    color: @tree-showline-icon-color;
+    transition: transform .3s ease;
   }
 }

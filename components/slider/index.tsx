@@ -70,7 +70,6 @@ export default class Slider extends React.Component<SliderProps, any> {
       >
         <RcHandle
           {...restProps}
-          value={value}
           onMouseEnter={() => this.toggleTooltipVisible(index, true)}
           onMouseLeave={() => this.toggleTooltipVisible(index, false)}
         />

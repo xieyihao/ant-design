@@ -2,22 +2,23 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import PureRenderMixin from 'rc-util/lib/PureRenderMixin';
-import Row from '../grid/row';
-import Col, { ColProps } from '../grid/col';
+import Row from '../row';
+import Col from '../col';
 import { WrappedFormUtils } from './Form';
 import { FIELD_META_PROP } from './constants';
 import warning from '../_util/warning';
 
-export interface FormItemColOption extends ColProps {
+export interface FormItemLabelColOption {
   span: number;
+  offset?: number;
 }
 
 export interface FormItemProps {
   prefixCls?: string;
   id?: string;
   label?: React.ReactNode;
-  labelCol?: FormItemColOption;
-  wrapperCol?: FormItemColOption;
+  labelCol?: FormItemLabelColOption;
+  wrapperCol?: FormItemLabelColOption;
   help?: React.ReactNode;
   extra?: React.ReactNode;
   validateStatus?: 'success' | 'warning' | 'error' | 'validating';
@@ -188,13 +189,9 @@ export default class FormItem extends React.Component<FormItemProps, any> {
   }
 
   renderWrapper(children) {
-    const { prefixCls, wrapperCol } = this.props;
-    const className = classNames(
-      `${prefixCls}-item-control-wrapper`,
-      wrapperCol && wrapperCol.className,
-    );
+    const wrapperCol = this.props.wrapperCol;
     return (
-      <Col {...wrapperCol} className={className} key="wrapper">
+      <Col className={`${this.props.prefixCls}-item-control-wrapper`} {...wrapperCol} key="wrapper">
         {children}
       </Col>
     );
@@ -217,15 +214,11 @@ export default class FormItem extends React.Component<FormItemProps, any> {
   }
 
   renderLabel() {
-    const { prefixCls, label, labelCol, colon, id } = this.props;
+    const { label, labelCol, prefixCls, colon, id } = this.props;
     const context = this.context;
     const required = this.isRequired();
 
-    const labelColClassName = classNames(
-      `${prefixCls}-item-label`,
-      labelCol && labelCol.className,
-    );
-    const labelClassName = classNames({
+    const className = classNames({
       [`${prefixCls}-item-required`]: required,
     });
 
@@ -238,10 +231,10 @@ export default class FormItem extends React.Component<FormItemProps, any> {
     }
 
     return label ? (
-      <Col {...labelCol} className={labelColClassName} key="label">
+      <Col {...labelCol} key="label" className={`${prefixCls}-item-label`}>
         <label
           htmlFor={id || this.getId()}
-          className={labelClassName}
+          className={className}
           title={typeof label === 'string' ? label : ''}
         >
           {labelChildren}

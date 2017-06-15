@@ -10,12 +10,11 @@ export interface SearchProps {
   style?: React.CSSProperties;
   defaultValue?: any;
   value?: any;
-  onSearch?: (value: string) => any;
   onChange?: React.FormEventHandler<any>;
+  onSearch?: (value: string) => any;
   size?: 'large' | 'default' | 'small';
   disabled?: boolean;
   readOnly?: boolean;
-  name?: string;
 }
 
 export default class Search extends React.Component<SearchProps, any> {
@@ -43,11 +42,11 @@ export default class Search extends React.Component<SearchProps, any> {
     );
     return (
       <Input
-        onPressEnter={this.onSearch}
-        {...others}
-        suffix={searchSuffix}
         className={classNames(prefixCls, className)}
+        onPressEnter={this.onSearch}
         ref={node => this.input = node}
+        suffix={searchSuffix}
+        {...others}
       />
     );
   }

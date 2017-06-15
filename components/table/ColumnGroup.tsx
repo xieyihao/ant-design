@@ -1,9 +1,8 @@
 import React from 'react';
+import RcTable from 'rc-table';
 
 export interface ColumnGroupProps {
   title?: React.ReactNode;
 }
 
-export default class ColumnGroup extends React.Component<ColumnGroupProps, React.ComponentState> {
-  static __ANT_TABLE_COLUMN_GROUP = true;
-}
+export default class ColumnGroup extends (RcTable.ColumnGroup as React.ComponentClass<ColumnGroupProps>) {}

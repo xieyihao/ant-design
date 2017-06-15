@@ -20,9 +20,3 @@ ReactDOM.render(
   <Alert message="Success Text" type="success" />
 , mountNode);
 ````
-
-<style>
-.ant-alert {
-  margin-bottom: 16px;
-}
-</style>

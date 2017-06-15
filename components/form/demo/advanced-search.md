@@ -43,18 +43,18 @@ class AdvancedSearchForm extends React.Component {
     this.setState({ expand: !expand });
   }
 
-  // To generate mock Form.Item
-  getFields() {
-    const count = this.state.expand ? 10 : 6;
+  render() {
     const { getFieldDecorator } = this.props.form;
     const formItemLayout = {
       labelCol: { span: 5 },
       wrapperCol: { span: 19 },
     };
+
+    // To generate mock Form.Item
     const children = [];
     for (let i = 0; i < 10; i++) {
       children.push(
-        <Col span={8} key={i} style={{ display: i < count ? 'block' : 'none' }}>
+        <Col span={8} key={i}>
           <FormItem {...formItemLayout} label={`Field ${i}`}>
             {getFieldDecorator(`field-${i}`)(
               <Input placeholder="placeholder" />
@@ -63,16 +63,17 @@ class AdvancedSearchForm extends React.Component {
         </Col>
       );
     }
-    return children;
-  }
 
-  render() {
+    const expand = this.state.expand;
+    const shownCount = expand ? children.length : 6;
     return (
       <Form
         className="ant-advanced-search-form"
         onSubmit={this.handleSearch}
       >
-        <Row gutter={40}>{this.getFields()}</Row>
+        <Row gutter={40}>
+          {children.slice(0, shownCount)}
+        </Row>
         <Row>
           <Col span={24} style={{ textAlign: 'right' }}>
             <Button type="primary" htmlType="submit">Search</Button>
@@ -80,7 +81,7 @@ class AdvancedSearchForm extends React.Component {
               Clear
             </Button>
             <a style={{ marginLeft: 8, fontSize: 12 }} onClick={this.toggle}>
-              Collapse <Icon type={this.state.expand ? 'up' : 'down'} />
+              Collapse <Icon type={expand ? 'up' : 'down'} />
             </a>
           </Col>
         </Row>

@@ -11,7 +11,7 @@ title:
 
 ## en-US
 
-Basic modal.
+Basic modal dialog.
 
 ````jsx
 import { Modal, Button } from 'antd';
@@ -38,16 +38,13 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <Button type="primary" onClick={this.showModal}>Open</Button>
-        <Modal
-          title="Basic Modal"
-          visible={this.state.visible}
-          onOk={this.handleOk}
-          onCancel={this.handleCancel}
+        <Button type="primary" onClick={this.showModal}>Open a modal dialog</Button>
+        <Modal title="Basic Modal" visible={this.state.visible}
+          onOk={this.handleOk} onCancel={this.handleCancel}
         >
-          <p>Some contents...</p>
-          <p>Some contents...</p>
-          <p>Some contents...</p>
+          <p>some contents...</p>
+          <p>some contents...</p>
+          <p>some contents...</p>
         </Modal>
       </div>
     );

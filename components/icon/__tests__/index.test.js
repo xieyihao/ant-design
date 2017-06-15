@@ -1,12 +1,9 @@
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
-import Icon from '..';
+import { wrap } from 'react-stateless-wrapper';
+import AntIcon from '..';
 
-class Wrapper extends React.Component {
-  render() {
-    return this.props.children;
-  }
-}
+const Icon = wrap(AntIcon);
 
 describe('Icon', () => {
   let icon;
@@ -14,7 +11,7 @@ describe('Icon', () => {
 
   beforeEach(() => {
     icon = TestUtils.renderIntoDocument(
-      <Wrapper><Icon type="appstore" className="my-icon-classname" /></Wrapper>
+      <Icon type="appstore" className="my-icon-classname" />
     );
     iconNode = TestUtils.findRenderedDOMComponentWithTag(icon, 'I');
   });

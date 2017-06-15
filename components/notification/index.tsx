@@ -148,19 +148,18 @@ function notice(args) {
   });
 }
 
-export interface NotificationApi {
-  success(args: ArgsProps): void;
-  error(args: ArgsProps): void;
-  info(args: ArgsProps): void;
-  warn(args: ArgsProps): void;
-  warning(args: ArgsProps): void;
+const api: {
+  success?(args: ArgsProps): void;
+  error?(args: ArgsProps): void;
+  info?(args: ArgsProps): void;
+  warn?(args: ArgsProps): void;
+  warning?(args: ArgsProps): void;
+
   open(args: ArgsProps): void;
   close(key: string): void;
   config(options: ConfigProps): void;
   destroy(): void;
-}
-
-const api = {
+} = {
   open(args: ArgsProps) {
     notice(args);
   },
@@ -189,7 +188,7 @@ const api = {
       if (notify) {
         notify.destroy();
       }
-      delete notificationInstance[defaultPlacement];
+      notificationInstance[defaultPlacement] = null;
     }
     if (duration !== undefined) {
       defaultDuration = duration;
@@ -209,4 +208,4 @@ const api = {
 
 (api as any).warn = (api as any).warning;
 
-export default api as NotificationApi;
+export default api;

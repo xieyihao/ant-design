@@ -85,13 +85,10 @@ class Demo extends React.Component {
     return (
       <Tree
         checkable
-        onExpand={this.onExpand}
-        expandedKeys={this.state.expandedKeys}
+        onExpand={this.onExpand} expandedKeys={this.state.expandedKeys}
         autoExpandParent={this.state.autoExpandParent}
-        onCheck={this.onCheck}
-        checkedKeys={this.state.checkedKeys}
-        onSelect={this.onSelect}
-        selectedKeys={this.state.selectedKeys}
+        onCheck={this.onCheck} checkedKeys={this.state.checkedKeys}
+        onSelect={this.onSelect} selectedKeys={this.state.selectedKeys}
       >
         {loop(gData)}
       </Tree>

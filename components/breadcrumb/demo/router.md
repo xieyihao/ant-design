@@ -1,7 +1,6 @@
 ---
 order: 2
 iframe: 200
-reactRouter: react-router
 title:
   zh-CN: 路由
   en-US: React Router Integration
@@ -9,11 +8,11 @@ title:
 
 ## zh-CN
 
-和 `react-router@2` `react-router@3` 进行结合使用。
+和 `react-router@2+` 进行结合使用。
 
 ## en-US
 
-Used together with `react-router@2` `react-router@3`.
+Used together with `react-router@2+`.
 
 ````jsx
 import { Router, Route, Link, hashHistory } from 'react-router';

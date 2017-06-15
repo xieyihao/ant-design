@@ -5,8 +5,6 @@
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
     "jsx": "preserve",
-    "noUnusedParameters": true,
-    "noUnusedLocals": true,
     "target": "es6",
     "lib": [
       "dom",
@@ -14,8 +12,6 @@
     ]
   },
   "exclude": [
-    "node_modules",
-    "lib",
-    "es"
+    "node_modules"
   ]
 }

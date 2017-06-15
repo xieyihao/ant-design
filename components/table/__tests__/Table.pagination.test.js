@@ -15,7 +15,7 @@ describe('Table.pagination', () => {
     { key: 3, name: 'Jerry' },
   ];
 
-  const pagination = { className: 'my-page', pageSize: 2 };
+  const pagination = { pageSize: 2 };
 
   function createTable(props) {
     return (
@@ -66,7 +66,6 @@ describe('Table.pagination', () => {
 
     expect(handleChange).toBeCalledWith(
       {
-        className: 'my-page',
         current: 2,
         pageSize: 2,
       },

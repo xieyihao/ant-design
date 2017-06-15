@@ -71,8 +71,7 @@ class EditableTagGroup extends React.Component {
         {inputVisible && (
           <Input
             ref={this.saveInputRef}
-            type="text"
-            size="small"
+            type="text" size="small"
             style={{ width: 78 }}
             value={inputValue}
             onChange={this.handleInputChange}

@@ -99,11 +99,8 @@ export default class ComponentDoc extends React.Component {
             }
             <h2>
               <FormattedMessage id="app.component.examples" />
-              <Icon
-                type="appstore"
-                className={expandTriggerClass}
-                title="展开全部代码"
-                onClick={this.handleExpandToggle}
+              <Icon type="appstore" className={expandTriggerClass}
+                title="展开全部代码" onClick={this.handleExpandToggle}
               />
             </h2>
           </section>
@@ -117,7 +114,7 @@ export default class ComponentDoc extends React.Component {
               {leftChildren}
             </Col>
             {
-              isSingleCol ? null : <Col className="code-boxes-col-2-1" span={12}>{rightChildren}</Col>
+              isSingleCol ? null : <Col className="code-boxes-col-2-1" span="12">{rightChildren}</Col>
             }
           </Row>
           {

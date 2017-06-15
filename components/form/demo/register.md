@@ -115,15 +115,14 @@ class RegistrationForm extends React.Component {
     const prefixSelector = getFieldDecorator('prefix', {
       initialValue: '86',
     })(
-      <Select style={{ width: 60 }}>
+      <Select className="icp-selector">
         <Option value="86">+86</Option>
-        <Option value="87">+87</Option>
       </Select>
     );
 
-    const websiteOptions = autoCompleteResult.map(website => (
-      <AutoCompleteOption key={website}>{website}</AutoCompleteOption>
-    ));
+    const websiteOptions = autoCompleteResult.map((website) => {
+      return <AutoCompleteOption key={website}>{website}</AutoCompleteOption>;
+    });
 
     return (
       <Form onSubmit={this.handleSubmit}>
@@ -208,7 +207,7 @@ class RegistrationForm extends React.Component {
           {getFieldDecorator('phone', {
             rules: [{ required: true, message: 'Please input your phone number!' }],
           })(
-            <Input addonBefore={prefixSelector} style={{ width: '100%' }} />
+            <Input addonBefore={prefixSelector} />
           )}
         </FormItem>
         <FormItem
@@ -263,4 +262,10 @@ class RegistrationForm extends React.Component {
 const WrappedRegistrationForm = Form.create()(RegistrationForm);
 
 ReactDOM.render(<WrappedRegistrationForm />, mountNode);
+````
+
+````css
+#components-form-demo-register .icp-selector {
+  width: 60px;
+}
 ````
