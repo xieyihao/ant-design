@@ -45,9 +45,6 @@ const App = React.createClass({
         <Button type="primary" icon="poweroff" loading={this.state.iconLoading} onClick={this.enterIconLoading}>
           Click me!
         </Button>
-        <br />
-        <Button shape="circle" loading />
-        <Button type="primary" shape="circle" loading />
       </div>
     );
   },

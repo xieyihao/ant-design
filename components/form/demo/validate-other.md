@@ -149,7 +149,7 @@ const Demo = Form.create()(React.createClass({
         >
           {getFieldDecorator('upload', {
             valuePropName: 'fileList',
-            getValueFromEvent: this.normFile,
+            normalize: this.normFile,
           })(
             <Upload name="logo" action="/upload.do" listType="picture" onChange={this.handleUpload}>
               <Button>

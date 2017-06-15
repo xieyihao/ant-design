@@ -19,24 +19,31 @@ const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
 
 const Sider = React.createClass({
+  getInitialState() {
+    return {
+      current: '1',
+    };
+  },
   handleClick(e) {
     console.log('click ', e);
+    this.setState({
+      current: e.key,
+    });
   },
   render() {
     return (
-      <Menu
-        onClick={this.handleClick}
+      <Menu onClick={this.handleClick}
         style={{ width: 240 }}
-        defaultSelectedKeys={['1']}
         defaultOpenKeys={['sub1']}
+        selectedKeys={[this.state.current]}
         mode="inline"
       >
         <SubMenu key="sub1" title={<span><Icon type="mail" /><span>Navigation One</span></span>}>
-          <MenuItemGroup key="g1" title="Item 1">
+          <MenuItemGroup title="Item 1">
             <Menu.Item key="1">Option 1</Menu.Item>
             <Menu.Item key="2">Option 2</Menu.Item>
           </MenuItemGroup>
-          <MenuItemGroup key="g2" title="Item 2">
+          <MenuItemGroup title="Item 2">
             <Menu.Item key="3">Option 3</Menu.Item>
             <Menu.Item key="4">Option 4</Menu.Item>
           </MenuItemGroup>
@@ -59,6 +66,5 @@ const Sider = React.createClass({
     );
   },
 });
-
 ReactDOM.render(<Sider />, mountNode);
 ````

@@ -46,7 +46,7 @@ describe('Menu', () => {
 
   it('should accept openKeys in mode horizontal', () => {
     const wrapper = mount(
-      <Menu openKeys={['1']} mode="horizontal" openTransitionName="">
+      <Menu openKeys={['1']} mode="horizontal">
         <SubMenu key="1" title="submenu1">
           <Menu.Item key="submenu1">Option 1</Menu.Item>
           <Menu.Item key="submenu2">Option 2</Menu.Item>
@@ -54,16 +54,12 @@ describe('Menu', () => {
         <Menu.Item key="2">menu2</Menu.Item>
       </Menu>
     );
-    expect(wrapper.find('.ant-menu-sub').at(0).hasClass('ant-menu-hidden')).not.toBe(true);
-    wrapper.setProps({ openKeys: [] });
-    expect(wrapper.find('.ant-menu-sub').at(0).hasClass('ant-menu-hidden')).toBe(true);
-    wrapper.setProps({ openKeys: ['1'] });
     expect(wrapper.find('.ant-menu-sub').at(0).hasClass('ant-menu-hidden')).not.toBe(true);
   });
 
-  it.only('should accept openKeys in mode inline', () => {
+  it('should accept openKeys in mode inline', () => {
     const wrapper = mount(
-      <Menu openKeys={['1']} mode="inline" openAnimation="">
+      <Menu openKeys={['1']} mode="inline">
         <SubMenu key="1" title="submenu1">
           <Menu.Item key="submenu1">Option 1</Menu.Item>
           <Menu.Item key="submenu2">Option 2</Menu.Item>
@@ -71,16 +67,12 @@ describe('Menu', () => {
         <Menu.Item key="2">menu2</Menu.Item>
       </Menu>
     );
-    expect(wrapper.find('.ant-menu-sub').at(0).hasClass('ant-menu-hidden')).not.toBe(true);
-    wrapper.setProps({ openKeys: [] });
-    expect(wrapper.find('.ant-menu-sub').at(0).hasClass('ant-menu-hidden')).toBe(true);
-    wrapper.setProps({ openKeys: ['1'] });
     expect(wrapper.find('.ant-menu-sub').at(0).hasClass('ant-menu-hidden')).not.toBe(true);
   });
 
   it('should accept openKeys in mode vertical', () => {
     const wrapper = mount(
-      <Menu openKeys={['1']} mode="vertical" openTransitionName="">
+      <Menu openKeys={['1']} mode="vertical">
         <SubMenu key="1" title="submenu1">
           <Menu.Item key="submenu1">Option 1</Menu.Item>
           <Menu.Item key="submenu2">Option 2</Menu.Item>
@@ -88,10 +80,6 @@ describe('Menu', () => {
         <Menu.Item key="2">menu2</Menu.Item>
       </Menu>
     );
-    expect(wrapper.find('.ant-menu-sub').at(0).hasClass('ant-menu-hidden')).not.toBe(true);
-    wrapper.setProps({ openKeys: [] });
-    expect(wrapper.find('.ant-menu-sub').at(0).hasClass('ant-menu-hidden')).toBe(true);
-    wrapper.setProps({ openKeys: ['1'] });
     expect(wrapper.find('.ant-menu-sub').at(0).hasClass('ant-menu-hidden')).not.toBe(true);
   });
 
@@ -109,22 +97,5 @@ describe('Menu', () => {
     );
     wrapper.update();
     // just expect no error emit
-  });
-
-  it('should always follow openKeys when mode is switched', () => {
-    const wrapper = mount(
-      <Menu openKeys={['1']} mode="inline">
-        <SubMenu key="1" title="submenu1">
-          <Menu.Item key="submenu1">Option 1</Menu.Item>
-          <Menu.Item key="submenu2">Option 2</Menu.Item>
-        </SubMenu>
-        <Menu.Item key="2">menu2</Menu.Item>
-      </Menu>
-    );
-    expect(wrapper.find('.ant-menu-sub').at(0).hasClass('ant-menu-hidden')).not.toBe(true);
-    wrapper.setProps({ mode: 'vertical' });
-    expect(wrapper.find('.ant-menu-sub').at(0).hasClass('ant-menu-hidden')).not.toBe(true);
-    wrapper.setProps({ mode: 'inline' });
-    expect(wrapper.find('.ant-menu-sub').at(0).hasClass('ant-menu-hidden')).not.toBe(true);
   });
 });

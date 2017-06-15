@@ -3,3 +3,4 @@ components/**/*.jsx
 !.eslintrc.js
 !components/*/__tests__/*
 !components/*/demo/*
+!components/*/style/*
